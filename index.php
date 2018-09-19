@@ -51,10 +51,10 @@ function format_price($price)
     $parts = floor($length / $part_length);
 
     for ($part = 0; $part <= $parts; $part++) {
-        $partStart = $length - $part * $part_length;
-        $start = $partStart < $part_length ? 0 : $partStart - $part_length;
+        $part_start = $length - $part * $part_length;
+        $start = $part_start < $part_length ? 0 : $part_start - $part_length;
 
-        $rank = substr($original, $start, min($part_length, $partStart));
+        $rank = substr($original, $start, min($part_length, $part_start));
 
         $result = $rank . ' ' . $result;
     }
