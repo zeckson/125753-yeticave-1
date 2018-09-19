@@ -38,7 +38,37 @@ $lots = [
         'category' => 'Разное',
         'price' => 5400,
         'image' => 'img/lot-6.jpg']
-]
+];
+
+function format_price($price)
+{
+    $part_length = 3;
+
+    $original = ceil($price);
+
+    $result = '';
+    $length = strlen($original);
+    $parts = floor($length / $part_length);
+
+    for ($part = 0; $part <= $parts; $part++) {
+        $partStart = $length - $part * $part_length;
+        $start = $partStart < $part_length ? 0 : $partStart - $part_length;
+
+        $rank = substr($original, $start, min($part_length, $partStart));
+
+        $result = $rank . ' ' . $result;
+    }
+
+    return $result . ' ₽';
+}
+
+;
+
+echo format_price(500);
+echo format_price(1500);
+echo format_price(99500);
+echo format_price(999500);
+echo format_price(1234556789);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -118,7 +148,7 @@ $lots = [
                         <div class=\"lot__state\">
                             <div class=\"lot__rate\">
                                 <span class=\"lot__amount\">Стартовая цена</span>
-                                <span class=\"lot__cost\">{$lot['price']}<b class=\"rub\">р</b></span>
+                                <span class=\"lot__cost\"><b class=\"rub\">{$lot['price']} р</b></span>
                             </div>
                             <div class=\"lot__timer timer\">
 
