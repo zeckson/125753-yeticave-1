@@ -61,14 +61,6 @@ function format_price($price)
 
     return $result . ' ₽';
 }
-
-;
-
-echo format_price(500);
-echo format_price(1500);
-echo format_price(99500);
-echo format_price(999500);
-echo format_price(1234556789);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -135,30 +127,25 @@ echo format_price(1234556789);
                 <h2>Открытые лоты</h2>
             </div>
             <ul class="lots__list">
-                <?php
-                foreach ($lots as $lot) {
-                    print "
-                    <li class=\"lots__item lot\">
-                    <div class=\"lot__image\">
-                        <img src=\"{$lot['image']}\" width=\"350\" height=\"260\" alt=\"{$lot['name']}\">
+                <?php foreach ($lots as $lot): ?>
+                <li class="lots__item lot">
+                    <div class="lot__image">
+                        <img src="<?=$lot['image']?>" width="350" height="260" alt="<?=$lot['name']?>">
                     </div>
-                    <div class=\"lot__info\">
-                        <span class=\"lot__category\">{$lot['category']}</span>
-                        <h3 class=\"lot__title\"><a class=\"text-link\" href=\"pages/lot.html\">{$lot['name']}</a></h3>
-                        <div class=\"lot__state\">
-                            <div class=\"lot__rate\">
-                                <span class=\"lot__amount\">Стартовая цена</span>
-                                <span class=\"lot__cost\"><b class=\"rub\">{$lot['price']} р</b></span>
+                    <div class="lot__info">
+                        <span class="lot__category"><?=$lot['category']?></span>
+                        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$lot['name']?></a></h3>
+                        <div class="lot__state">
+                            <div class="lot__rate">
+                                <span class="lot__amount">Стартовая цена</span>
+                                <span class="lot__cost"><?=format_price($lot['price'])?></span>
                             </div>
-                            <div class=\"lot__timer timer\">
-
+                            <div class="lot__timer timer">
                             </div>
                         </div>
                     </div>
                 </li>
-                    ";
-                }
-                ?>
+                <?php endforeach;?>
             </ul>
         </section>
     </main>
