@@ -38,7 +38,33 @@ $lots = [
         'category' => 'Разное',
         'price' => 5400,
         'image' => 'img/lot-6.jpg']
-]
+];
+
+function format_price($price)
+{
+    $part_length = 3;
+
+    $original = ceil($price);
+
+    $result = '';
+    $length = strlen($original);
+    $parts = ceil($length / $part_length);
+
+    for ($part = 0; $part < $parts; $part++) {
+        $part_start = $length - $part * $part_length;
+        $start = $part_start < $part_length ? 0 : $part_start - $part_length;
+
+        $rank = substr($original, $start, min($part_length, $part_start));
+
+        if ($part === 0) {
+            $result = $rank;
+        } else {
+            $result = $rank . ' ' . $result;
+        }
+    }
+
+    return $result . ' ₽';
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -105,30 +131,26 @@ $lots = [
                 <h2>Открытые лоты</h2>
             </div>
             <ul class="lots__list">
-                <?php
-                foreach ($lots as $lot) {
-                    print "
-                    <li class=\"lots__item lot\">
-                    <div class=\"lot__image\">
-                        <img src=\"{$lot['image']}\" width=\"350\" height=\"260\" alt=\"{$lot['name']}\">
-                    </div>
-                    <div class=\"lot__info\">
-                        <span class=\"lot__category\">{$lot['category']}</span>
-                        <h3 class=\"lot__title\"><a class=\"text-link\" href=\"pages/lot.html\">{$lot['name']}</a></h3>
-                        <div class=\"lot__state\">
-                            <div class=\"lot__rate\">
-                                <span class=\"lot__amount\">Стартовая цена</span>
-                                <span class=\"lot__cost\">{$lot['price']}<b class=\"rub\">р</b></span>
-                            </div>
-                            <div class=\"lot__timer timer\">
-
+                <?php foreach ($lots as $lot): ?>
+                    <li class="lots__item lot">
+                        <div class="lot__image">
+                            <img src="<?= $lot['image'] ?>" width="350" height="260" alt="<?= $lot['name'] ?>">
+                        </div>
+                        <div class="lot__info">
+                            <span class="lot__category"><?= $lot['category'] ?></span>
+                            <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?= $lot['name'] ?></a>
+                            </h3>
+                            <div class="lot__state">
+                                <div class="lot__rate">
+                                    <span class="lot__amount">Стартовая цена</span>
+                                    <span class="lot__cost"><?= format_price($lot['price']) ?></span>
+                                </div>
+                                <div class="lot__timer timer">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                    ";
-                }
-                ?>
+                    </li>
+                <?php endforeach; ?>
             </ul>
         </section>
     </main>
