@@ -11,7 +11,6 @@ WORKDIR /app
 # Can we use several RUN commands here?
 RUN apt-get -y update
 RUN apt-get -y install nginx
-# RUN service nginx start
 RUN cd /etc/nginx/sites-available
 COPY ./nginx.conf /etc/nginx/sites-available/yeticave.local
 
@@ -21,5 +20,6 @@ EXPOSE 80
 # Define environment variable
 ENV NAME World
 
-# TODO: how to run nginx not in service mode
-CMD nginx -t
+STOPSIGNAL SIGTERM
+
+CMD ["nginx", "-g", "daemon off;"]
