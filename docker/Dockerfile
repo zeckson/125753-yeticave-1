@@ -11,8 +11,7 @@ WORKDIR /app
 # Can we use several RUN commands here?
 RUN apt-get -y update
 RUN apt-get -y install nginx
-RUN cd /etc/nginx/sites-available
-COPY ./nginx.conf /etc/nginx/sites-available/yeticave.local
+VOLUME ./nginx.conf /etc/nginx/sites-available/yeticave.local
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
