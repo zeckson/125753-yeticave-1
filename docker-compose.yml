@@ -1,10 +1,26 @@
-version: '2'
+version: '3'
 services:
-  webserver:
-    image: phpstorm/php-71-apache-xdebug-26
+  # Scenario:
+  # Update zeckson/nginx Dockerfile
+  # docker build -t zeckson/nginx .
+  # docker-compose up
+  # ? In this case docker-compose doesn't use latest image ?
+  web:
+    image: zeckson/nginx
     ports:
     - "80:80"
     volumes:
-    - ./:/var/www/html
-    environment:
-      XDEBUG_CONFIG: remote_host=host.docker.internal
+    - ./nginx/yeticave.local.conf:/etc/nginx/conf.d/yeticave.local.conf
+    - ./:/code
+    networks:
+    - code-network
+  php:
+    image: php:fpm
+    volumes:
+    - ./:/code
+    networks:
+    - code-network
+
+networks:
+  code-network:
+    driver: bridge
