@@ -8,8 +8,8 @@ WORKDIR /app
 # ADD .. /app
 
 # Update everything
-# Can we use several RUN commands here?
 RUN apt-get -y update
+# Install nginx
 RUN apt-get -y install nginx
 VOLUME ./nginx.conf /etc/nginx/sites-available/yeticave.local
 
