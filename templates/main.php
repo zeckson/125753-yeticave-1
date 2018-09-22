@@ -59,6 +59,26 @@ function format_price($price)
 
     return $result . ' ₽';
 }
+
+function time_left()
+{
+    $now = time(); // PHP return timestamp in seconds (WOOOOT????)
+    $tomorrow = strtotime('tomorrow');
+
+    return $tomorrow - $now;
+}
+
+function format_period($time_left)
+{
+    $one_minute = 60; // seconds
+
+    $minutes = ceil($time_left / $one_minute);
+    $hours = floor($minutes / 60);
+
+    return $hours . ':' . ($minutes % 60);
+}
+
+$time_left = format_period(time_left());
 ?>
 <section class="promo">
     <h2 class="promo__title">Нужен стафф для катки?</h2>
@@ -92,6 +112,7 @@ function format_price($price)
                             <span class="lot__cost"><?= format_price($lot['price']) ?></span>
                         </div>
                         <div class="lot__timer timer">
+                            <?= $time_left ?>
                         </div>
                     </div>
                 </div>
