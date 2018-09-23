@@ -1,5 +1,5 @@
 <?php
-function include_template($src, $data = null)
+function include_template($src, array $data = null)
 {
     $src = $src . '.php';
     $result = '';
