@@ -1,16 +1,15 @@
 version: '3'
 services:
-  # Scenario:
-  # Update zeckson/nginx Dockerfile
-  # docker build -t zeckson/nginx .
-  # docker-compose up
-  # ? In this case docker-compose doesn't use latest image ?
   web:
-    image: zeckson/nginx
+    # every time you update ./nginx/Dockerfile - either you need to run docker-compose
+    # with special flag to force rebuild (not recommended), or update version here (better way)
+    image: zeckson/nginx:0.1
+    build:
+      context: ./nginx
     ports:
     - "80:80"
     volumes:
-    - ./nginx/yeticave.local.conf:/etc/nginx/conf.d/yeticave.local.conf
+    - ./nginx/yeticave.local.conf:/etc/nginx/sites-enabled/default
     - ./:/code
     networks:
     - code-network
