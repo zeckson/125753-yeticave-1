@@ -1,10 +1,25 @@
-version: '2'
+version: '3'
 services:
-  webserver:
-    image: phpstorm/php-71-apache-xdebug-26
+  web:
+    # every time you update ./nginx/Dockerfile - either you need to run docker-compose
+    # with special flag to force rebuild (not recommended), or update version here (better way)
+    image: zeckson/nginx:0.1
+    build:
+      context: ./nginx
     ports:
     - "80:80"
     volumes:
-    - ./:/var/www/html
-    environment:
-      XDEBUG_CONFIG: remote_host=host.docker.internal
+    - ./nginx/yeticave.local.conf:/etc/nginx/sites-enabled/default
+    - ./:/code
+    networks:
+    - code-network
+  php:
+    image: php:fpm
+    volumes:
+    - ./:/code
+    networks:
+    - code-network
+
+networks:
+  code-network:
+    driver: bridge
