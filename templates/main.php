@@ -1,5 +1,6 @@
 <?php
 require_once 'src/lot_format.php';
+$time_left = format_period(time_left());
 ?>
 <section class="promo">
     <h2 class="promo__title">Нужен стафф для катки?</h2>
@@ -33,6 +34,7 @@ require_once 'src/lot_format.php';
                             <span class="lot__cost"><?= format_price($lot['price']) ?></span>
                         </div>
                         <div class="lot__timer timer">
+                            <?= $time_left ?>
                         </div>
                     </div>
                 </div>
