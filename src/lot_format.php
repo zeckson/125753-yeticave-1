@@ -24,3 +24,22 @@ function format_price($price)
 
     return $result . ' ₽';
 }
+
+function time_left()
+{
+    $now = time(); // PHP return timestamp in seconds (WOOOOT????)
+    $tomorrow = strtotime('tomorrow');
+
+    return $tomorrow - $now;
+}
+
+function format_period($time_left)
+{
+    $one_minute = 60; // seconds
+
+    $minutes = ceil($time_left / $one_minute);
+    $hours = floor($minutes / 60);
+    $minutes %= 60;
+
+    return ($hours < 10 ? '0'.$hours : $hours) . ':' . ($minutes < 10 ? '0'.$minutes : $minutes);
+}
