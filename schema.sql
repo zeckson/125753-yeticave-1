@@ -1,3 +1,5 @@
+# use mysql.server start/stop — to start/stop mysql server
+
 CREATE DATABASE IF NOT EXISTS yeticave
   DEFAULT CHAR SET utf8
   DEFAULT COLLATE utf8_general_ci;
