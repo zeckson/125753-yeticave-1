@@ -1,6 +1,6 @@
 # use mysql.server start/stop — to start/stop mysql server
 
-drop database yeticave;
+DROP DATABASE yeticave;
 
 CREATE DATABASE IF NOT EXISTS yeticave
   DEFAULT CHAR SET utf8
@@ -8,13 +8,16 @@ CREATE DATABASE IF NOT EXISTS yeticave
 
 USE yeticave;
 
+
 CREATE TABLE users (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  created_at TIMESTAMP    NOT NULL,
+  created_at TIMESTAMP             DEFAULT CURRENT_TIMESTAMP,
+
+  name       VARCHAR(80)  NOT NULL,
   email      VARCHAR(80)  NOT NULL UNIQUE,
   password   VARCHAR(40)  NOT NULL,
-  name       VARCHAR(80)  NOT NULL,
-  info       TEXT         NOT NULL,
+
+  info       TEXT,
   avatar_url VARCHAR(100)
 );
 
@@ -23,28 +26,21 @@ CREATE TABLE categories (
   name VARCHAR(80) NOT NULL UNIQUE
 );
 
-INSERT INTO categories (id, name)
-VALUES (0, 'Доски и лыжи'),
-       (1, 'Крепления'),
-       (2, 'Ботинки'),
-       (3, 'Одежда'),
-       (4, 'Инструменты'),
-       (5, 'Разное');
-
 CREATE TABLE lots
 (
   id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  created_at  TIMESTAMP    NOT NULL,
-  name        TEXT         NOT NULL,
-  description LONGTEXT,
-  image_url   TEXT,
-  start_price INT UNSIGNED DEFAULT 0,
-  closes_at   TIMESTAMP    NOT NULL,
-  bid_step    INT, # Bid step. What it used for?
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP            NOT NULL,
 
-  author_id   INT UNSIGNED NOT NULL,
+  name        TEXT                                           NOT NULL,
+  image_url   VARCHAR(100)                                   NOT NULL,
+  start_price INT UNSIGNED                                   NOT NULL,
+  author_id   INT UNSIGNED                                   NOT NULL,
+  category_id INT UNSIGNED                                   NOT NULL,
+
+  description LONGTEXT,
+  bid_step    INT          DEFAULT 1000,
+  closes_at   TIMESTAMP,
   winner_id   INT UNSIGNED,
-  category_id INT UNSIGNED NOT NULL,
 
   FOREIGN KEY (author_id) REFERENCES users (id)
     ON DELETE CASCADE,
@@ -57,10 +53,11 @@ CREATE TABLE lots
 
 CREATE TABLE bids (
   id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  created_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 
-  owner_id   INT UNSIGNED NOT NULL,
-  lot_id     INT UNSIGNED NOT NULL,
+  amount     INT UNSIGNED                        NOT NULL,
+  owner_id   INT UNSIGNED                        NOT NULL,
+  lot_id     INT UNSIGNED                        NOT NULL,
 
   FOREIGN KEY (owner_id) REFERENCES users (id),
   FOREIGN KEY (lot_id) REFERENCES lots (id)
