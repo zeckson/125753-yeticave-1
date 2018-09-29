@@ -9,12 +9,12 @@ CREATE DATABASE IF NOT EXISTS yeticave
 USE yeticave;
 
 CREATE TABLE users (
-  id         INT UNSIGNED    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  created_at TIMESTAMP       NOT NULL,
-  email      VARCHAR(80)     NOT NULL UNIQUE,
-  password   VARBINARY(1024) NOT NULL,
-  name       VARCHAR(80)     NOT NULL,
-  info       TEXT            NOT NULL,
+  id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  created_at TIMESTAMP    NOT NULL,
+  email      VARCHAR(80)  NOT NULL UNIQUE,
+  password   VARCHAR(40)  NOT NULL,
+  name       VARCHAR(80)  NOT NULL,
+  info       TEXT         NOT NULL,
   avatar_url VARCHAR(100)
 );
 
@@ -42,9 +42,9 @@ CREATE TABLE lots
   closes_at   TIMESTAMP    NOT NULL,
   bid_step    INT, # Bid step. What it used for?
 
-  author_id      INT UNSIGNED NOT NULL,
-  winner_id      INT UNSIGNED,
-  category_id    INT UNSIGNED NOT NULL,
+  author_id   INT UNSIGNED NOT NULL,
+  winner_id   INT UNSIGNED,
+  category_id INT UNSIGNED NOT NULL,
 
   FOREIGN KEY (author_id) REFERENCES users (id)
     ON DELETE CASCADE,
@@ -59,8 +59,8 @@ CREATE TABLE bids (
   id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   created_at TIMESTAMP,
 
-  owner_id      INT UNSIGNED NOT NULL,
-  lot_id        INT UNSIGNED NOT NULL,
+  owner_id   INT UNSIGNED NOT NULL,
+  lot_id     INT UNSIGNED NOT NULL,
 
   FOREIGN KEY (owner_id) REFERENCES users (id),
   FOREIGN KEY (lot_id) REFERENCES lots (id)
