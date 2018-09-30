@@ -6,7 +6,33 @@ $current_user = rand(0, 1) ? [
     'avatar' => 'img/user.jpg'
 ] : null;
 
-$categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
+// To access to MySQL v8 and older you have to set option in `my.cnf`:
+// default-authentication-plugin=mysql_native_password
+// Long story is here: https://mysqlserverteam.com/upgrading-to-mysql-8-0-default-authentication-plugin-considerations/
+$connection = mysqli_connect('localhost', 'root', '', 'yeticave');
+
+if (!$connection) {
+    $error = mysqli_connect_error();
+    trigger_error("Failed connect to database: '{$error}'", E_USER_ERROR);
+}
+
+// setup charset
+mysqli_set_charset($connection, 'utf8');
+
+$sql = 'SELECT name FROM categories ORDER BY id ASC';
+$result = mysqli_query($connection, $sql);
+
+$categories = [];
+if (!$result) {
+    $error = mysqli_error($connection);
+    trigger_error("Failed SQL-query: \"{$error}\"", E_USER_ERROR);
+} else {
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    error_log(print_r($rows, TRUE));
+    foreach ($rows as $row) {
+        array_push($categories, $row['name']);
+    }
+}
 
 $lots = [
     [
