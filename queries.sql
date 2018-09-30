@@ -60,18 +60,17 @@ LIMIT 1;
 SELECT *
 FROM categories;
 # get all latest open lots. Select only name, start_price, image_url, price, number of bids, category name
-# TODO: What is price here?
-SELECT lot.id, lot.name, start_price, image_url, category.name AS category_name, count(bid.id) AS bids_count
+SELECT lot.id, lot.name, start_price, IFNULL(MAX(bid.amount), start_price) AS price, image_url, category.name AS category_name, count(bid.id) AS bids_count
 FROM lots lot
-       LEFT JOIN categories category ON lot.category_id = category.id
-       LEFT JOIN bids bid ON lot.id = bid.lot_id
+            LEFT JOIN categories category ON lot.category_id = category.id
+            LEFT JOIN bids bid ON lot.id = bid.lot_id
 GROUP BY lot.id
 ORDER BY lot.created_at DESC;
 # get lot by id with category name
 SET @lot_id = 6;
 SELECT lot.id, lot.name, start_price, image_url, category.name AS category_name
 FROM lots lot
-       JOIN categories category ON lot.category_id = category.id
+            JOIN categories category ON lot.category_id = category.id
 WHERE lot.id = @lot_id
 ORDER BY lot.created_at DESC;
 # update lot name by id
