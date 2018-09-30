@@ -32,7 +32,7 @@ if ($result) {
 
 $lots = [];
 
-$lot_query = 'SELECT lot.id, lot.name, start_price AS price, image_url AS image, category.name AS category, count(bid.id) AS bids_count
+$lot_query = 'SELECT lot.name, IFNULL(MAX(bid.amount), start_price) AS price, image_url AS image, category.name AS category, count(bid.id) AS bids_count
 FROM lots lot
        LEFT JOIN categories category ON lot.category_id = category.id
        LEFT JOIN bids bid ON lot.id = bid.lot_id
