@@ -26,11 +26,10 @@ function fetch_all($connection, $query)
 
     if (!$result) {
         $error = mysqli_error($connection);
-        trigger_error("Failed SQL-query: \"{$error}\"", E_USER_ERROR);
-    } else {
-        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        error_log(print_r($result, TRUE));
-        return $result;
+        trigger_error("Failed SQL-query: \"{$query}\" with error: $error", E_USER_ERROR);
+        die;
     }
-    return false;
+
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    return $result;
 }
