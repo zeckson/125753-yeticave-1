@@ -19,3 +19,17 @@ function include_template($src, array $data = null)
 
     return $result;
 }
+
+function fetch_all($connection, $query)
+{
+    $result = mysqli_query($connection, $query);
+
+    if (!$result) {
+        $error = mysqli_error($connection);
+        trigger_error("Failed SQL-query: \"{$query}\" with error: $error", E_USER_ERROR);
+        die;
+    }
+
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    return $result;
+}

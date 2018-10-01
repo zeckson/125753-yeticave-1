@@ -6,43 +6,31 @@ $current_user = rand(0, 1) ? [
     'avatar' => 'img/user.jpg'
 ] : null;
 
-$categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
+// To access to MySQL v8 and older you have to set option in `my.cnf`:
+// default-authentication-plugin=mysql_native_password
+// Long story is here: https://mysqlserverteam.com/upgrading-to-mysql-8-0-default-authentication-plugin-considerations/
+$connection = mysqli_connect('localhost', 'root', '', 'yeticave');
 
-$lots = [
-    [
-        'name' => '2014 Rossignol District Snowboard',
-        'category' => 'Доски и лыжи',
-        'price' => 10999,
-        'image' => 'img/lot-1.jpg'
-    ],
-    [
-        'name' => 'DC Ply Mens 2016/2017 Snowboard',
-        'category' => 'Доски и лыжи',
-        'price' => 159999,
-        'image' => 'img/lot-2.jpg'],
-    [
-        'name' => 'Крепления Union Contact Pro 2015 года размер L/XL',
-        'category' => 'Крепления',
-        'price' => 8000,
-        'image' => 'img/lot-3.jpg'],
-    [
-        'name' => 'Ботинки для сноуборда DC Mutiny Charocal',
-        'category' => 'Ботинки',
-        'price' => 10999,
-        'image' => 'img/lot-4.jpg'],
-    [
-        'name' => 'Куртка для сноуборда DC Mutiny Charocal',
-        'category' => 'Одежда',
-        'price' => 7500,
-        'image' => 'img/lot-5.jpg'],
-    [
-        'name' => 'Маска Oakley Canopy',
-        'category' => 'Разное',
-        'price' => 5400,
-        'image' => 'img/lot-6.jpg']
-];
+if (!$connection) {
+    $error = mysqli_connect_error();
+    trigger_error("Failed connect to database: '{$error}'", E_USER_ERROR);
+}
+
+// setup charset
+mysqli_set_charset($connection, 'utf8');
 
 require_once 'src/utils.php';
+
+$categories = fetch_all($connection, 'SELECT id, name FROM categories ORDER BY id ASC');
+
+$lot_query = 'SELECT lot.name, IFNULL(MAX(bid.amount), start_price) AS price, image_url AS image, category.name AS category, count(bid.id) AS bids_count
+FROM lots lot
+       LEFT JOIN categories category ON lot.category_id = category.id
+       LEFT JOIN bids bid ON lot.id = bid.lot_id
+GROUP BY lot.id
+ORDER BY lot.created_at DESC';
+
+$lots = fetch_all($connection, $lot_query);
 
 $config = [
     'title' => 'Заглавная',
