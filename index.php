@@ -21,16 +21,7 @@ mysqli_set_charset($connection, 'utf8');
 
 require_once 'src/utils.php';
 
-$result = fetch_all($connection, 'SELECT name FROM categories ORDER BY id ASC');
-
-$categories = [];
-if ($result) {
-    foreach ($result as $row) {
-        array_push($categories, $row['name']);
-    }
-}
-
-$lots = [];
+$categories = fetch_all($connection, 'SELECT id, name FROM categories ORDER BY id ASC');
 
 $lot_query = 'SELECT lot.name, IFNULL(MAX(bid.amount), start_price) AS price, image_url AS image, category.name AS category, count(bid.id) AS bids_count
 FROM lots lot
@@ -38,6 +29,7 @@ FROM lots lot
        LEFT JOIN bids bid ON lot.id = bid.lot_id
 GROUP BY lot.id
 ORDER BY lot.created_at DESC';
+
 $lots = fetch_all($connection, $lot_query);
 
 $config = [
