@@ -7,6 +7,8 @@ function prepare_query($where) {
        start_price,
        description,
        bid_step,
+       lot.created_at,
+       lot.closed_at,
        IFNULL(MAX(bid.amount), start_price) AS price,
        image_url                            AS image,
        category.name                        AS category,
@@ -20,11 +22,11 @@ ORDER BY lot.created_at DESC";
 }
 
 function get_all_open_lots($connection) {
-    $now = time() * 1000;
-    $lots_query = prepare_query("$now < lot.closed_at");
+    $now = date("Y-m-d H:i:s");
+    $lots_query = prepare_query("TIMESTAMP('$now') < lot.closed_at");
 
-
-    return fetch_all($connection, $lots_query);
+    $result = fetch_all($connection, $lots_query);
+    return $result;
 }
 
 function get_lot_by_id($connection, $id) {
