@@ -20,7 +20,9 @@ ORDER BY lot.created_at DESC";
 }
 
 function get_all_open_lots($connection) {
-    $lots_query = prepare_query('lot.closed_at IS NULL');
+    $now = time() * 1000;
+    $lots_query = prepare_query("$now < lot.closed_at");
+
 
     return fetch_all($connection, $lots_query);
 }
