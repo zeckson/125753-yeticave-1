@@ -21,7 +21,7 @@ if ($lot !== null) {
         'categories' => $categories
     ]);
     $config = [
-        'title' => 'Лот "'.htmlspecialchars($lot['name'], ENT_QUOTES).'""',
+        'title' => 'Лот "'.$lot['name'].'""',
         'current_user' => $current_user,
         'content' => include_template('templates/lot', [
             'navigation' => $navigation,
