@@ -14,7 +14,7 @@ require_once 'src/category_queries.php';
 $categories = get_all_categories($connection);
 
 require_once 'src/lot_queries.php';
-$lot = get_lot_by_id($connection, $_GET['id']);
+$lot = get_lot_by_id($connection, $_GET['id'] ?? null);
 
 if ($lot !== null) {
     $navigation = include_template('templates/navigation', [
