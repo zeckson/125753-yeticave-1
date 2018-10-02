@@ -23,10 +23,17 @@ require_once 'src/utils.php';
 
 $categories = fetch_all($connection, 'SELECT id, name FROM categories ORDER BY id ASC');
 
-$lot_query = 'SELECT lot.name, IFNULL(MAX(bid.amount), start_price) AS price, image_url AS image, category.name AS category, count(bid.id) AS bids_count
+$lot_query = 'SELECT lot.id,
+       lot.name,
+       start_price,
+       IFNULL(MAX(bid.amount), start_price) AS price,
+       image_url,
+       category.name                        AS category_name,
+       count(bid.id)                        AS bids_count
 FROM lots lot
        LEFT JOIN categories category ON lot.category_id = category.id
        LEFT JOIN bids bid ON lot.id = bid.lot_id
+WHERE lot.closed_at IS NULL
 GROUP BY lot.id
 ORDER BY lot.created_at DESC';
 
