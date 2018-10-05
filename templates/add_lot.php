@@ -65,26 +65,26 @@ function mark_if_true($condition, $value = 'form__item--invalid')
                 </label>
             </div>
         <?php endif; ?>
-        <span class="form__error">Укажите картинку</span>
+        <span class="form__error"><?= $errors['image'] ?></span>
     </div>
     <div class="form__container-three">
         <div class="form__item form__item--small <?= mark($errors['start_price']) ?>">
             <label for="lot-rate">Начальная цена</label>
             <input id="lot-rate" type="number" name="start_price" value="<?= intval($lot['start_price'] ?? '') ?>"
                    placeholder="0" required>
-            <span class="form__error">Введите начальную цену</span>
+            <span class="form__error"><?= $errors['start_price'] ?></span>
         </div>
         <div class="form__item form__item--small <?= mark($errors['bid_step']) ?>">
             <label for="lot-step">Шаг ставки</label>
             <input id="lot-step" type="number" name="bid_step" value="<?= intval($lot['bid_step'] ?? '') ?>"
                    placeholder="0" required>
-            <span class="form__error">Введите шаг ставки</span>
+            <span class="form__error"><?= $errors['bid_step'] ?></span>
         </div>
-        <div class="form__item" <?= mark($errors['closed_at']) ?>>
+        <div class="form__item <?= mark($errors['closed_at']) ?>">
             <label for="lot-date">Дата окончания торгов</label>
             <input class="form__input-date" id="lot-date" type="date" name="closed_at"
                    value="<?= htmlspecialchars($lot['closed_at'] ?? '') ?>" required>
-            <span class="form__error">Введите дату завершения торгов</span>
+            <span class="form__error"><?= $errors['closed_at'] ?></span>
         </div>
     </div>
     <?php if (!empty($errors)): ?>
