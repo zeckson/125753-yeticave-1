@@ -5,7 +5,7 @@ require_once 'src/utils.php';
 $connection = setup_connection();
 
 require_once 'src/user_queries.php';
-$current_user = get_random_user($connection);
+$current_user = get_random_user($connection)[0];
 $current_user['avatar'] = 'img/user.jpg';
 
 require_once 'src/category_queries.php';
@@ -23,14 +23,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $required = ['name', 'description', 'category', 'start_price', 'bid_step', 'closed_at'];
     foreach ($required as $key) {
-        if (empty($lot[$key])) {
+        $value = $lot[$key];
+        if (empty($value)) {
             $errors[$key] = 'Это поле надо заполнить';
-        } elseif ($key === 'start_price' || $key === 'bid_step' || $key === 'category') {
-            $value = intval($lot[$key]);
-            $lot[$key] = $value;
-            if ($value <= 0) {
-                $errors[$key] = 'Это поле должно быть больше 0';
-            }
+            continue;
+        }
+        switch ($key) {
+            case 'start_price':
+            case 'bid_step':
+            case 'category':
+                $value = intval($value);
+                if ($value <= 0) {
+                    $errors[$key] = 'Это поле должно быть больше 0';
+                }
+                break;
+            case 'closed_at':
+                $close_time = strtotime($value);
+                $now = time();
+                if ($close_time < $now) {
+                    $errors[$key] = 'Дата закрытия не может быть в прошлом';
+                }
+                break;
         }
     }
 
