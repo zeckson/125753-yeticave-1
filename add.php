@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif ($key === 'start_price' || $key === 'bid_step' || $key === 'category') {
             $value = intval($lot[$key]);
             $lot[$key] = $value;
-            if ($value === 0) {
+            if ($value <= 0) {
                 $errors[$key] = 'Это поле должно быть больше 0';
             }
         }
