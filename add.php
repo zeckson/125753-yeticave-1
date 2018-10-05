@@ -1,14 +1,12 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$current_user = [
-    'id' => 3,
-    'name' => 'Женёк Пыхарь',
-    'avatar' => 'img/user.jpg'
-];
-
 require_once 'src/utils.php';
 $connection = setup_connection();
+
+require_once 'src/user_queries.php';
+$current_user = get_random_user($connection);
+$current_user['avatar'] = 'img/user.jpg';
 
 require_once 'src/category_queries.php';
 $categories = get_all_categories($connection);
