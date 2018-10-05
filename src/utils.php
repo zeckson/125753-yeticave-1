@@ -148,7 +148,7 @@ function get_uploaded_file_name($fieldName)
 
     $upload_dir = './uploads';
 
-    if (!file_exists($upload_dir)) {
+    if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0777, false);
     }
 
