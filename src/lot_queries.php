@@ -1,7 +1,8 @@
 <?php
 include_once 'utils.php';
 
-function prepare_query($where) {
+function prepare_select_query($where)
+{
     return "SELECT lot.id,
        lot.name,
        start_price,
@@ -21,15 +22,17 @@ GROUP BY lot.id
 ORDER BY lot.created_at DESC";
 }
 
-function get_all_open_lots($connection) {
+function get_all_open_lots($connection)
+{
     $now = date("Y-m-d H:i:s");
-    $lots_query = prepare_query("TIMESTAMP('$now') < lot.closed_at");
+    $lots_query = prepare_select_query("TIMESTAMP('$now') < lot.closed_at");
 
     $result = fetch_all($connection, $lots_query);
     return $result;
 }
 
-function get_lot_by_id($connection, $id) {
+function get_lot_by_id($connection, $id)
+{
     if (!isset($id)) {
         return null;
     }
@@ -40,6 +43,13 @@ function get_lot_by_id($connection, $id) {
         }
     }
 
-    $rows = fetch_all($connection, prepare_query('lot.id = ?'), [$id]);
+    $rows = fetch_all($connection, prepare_select_query('lot.id = ?'), [$id]);
     return $rows[0] ?? null;
+}
+
+function insert_new_lot($connection, $lot, $current_user)
+{
+
+    return insert_into($connection, "INSERT INTO lots (name, description, category_id, start_price, image_url, bid_step, closed_at, author_id)
+VALUE (?, ?, ?, ?, ?, ?, ?, ?);", [$lot['name'], $lot['description'], $lot['category'], $lot['start_price'], $lot['image'], $lot['bid_step'], $lot['closed_at'], $current_user['id']]);
 }

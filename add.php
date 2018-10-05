@@ -1,11 +1,11 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$current_user = rand(0, 1) ? [
+$current_user = [
+    'id' => 3,
     'name' => 'Женёк Пыхарь',
     'avatar' => 'img/user.jpg'
-] : null;
-
+];
 
 require_once 'src/utils.php';
 $connection = setup_connection();
@@ -27,8 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($required as $key) {
         if (empty($lot[$key])) {
             $errors[$key] = 'Это поле надо заполнить';
-        } elseif ($key === 'start_price' || $key === 'bid_step') {
-            if (intval($lot[$key]) === 0) {
+        } elseif ($key === 'start_price' || $key === 'bid_step' || $key === 'category') {
+            $value = intval($lot[$key]);
+            $lot[$key] = $value;
+            if ($value === 0) {
                 $errors[$key] = 'Это поле должно быть больше 0';
             }
         }
@@ -41,9 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($errors)) {
-
-        // TODO: validation complete submit to database
-//        $page_content = include_template('add.php', ['gif' => $image, 'errors' => $errors, 'dict' => $dict]);
+        require_once 'src/lot_queries.php';
+        $id = insert_new_lot($connection, $lot, $current_user);
+        header("Location: /lot.php?id=" . $id); //
     }
 }
 $config = [

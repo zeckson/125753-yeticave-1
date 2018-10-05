@@ -2,6 +2,7 @@
 date_default_timezone_set('Europe/Moscow');
 
 $current_user = rand(0, 1) ? [
+    'id' => 3,
     'name' => 'Женёк Пыхарь',
     'avatar' => 'img/user.jpg'
 ] : null;

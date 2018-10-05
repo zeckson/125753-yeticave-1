@@ -20,7 +20,13 @@ function include_template($src, array $data = null)
     return $result;
 }
 
-function fetch_all($connection, $query, $data = [])
+/**
+ * @param $connection
+ * @param $query
+ * @param $data
+ * @return bool|mysqli_stmt
+ */
+function prepare($connection, $query, $data)
 {
     $stmt = mysqli_prepare($connection, $query);
 
@@ -50,18 +56,30 @@ function fetch_all($connection, $query, $data = [])
         mysqli_stmt_bind_param(...$values);
     }
 
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $result =mysqli_stmt_execute($stmt);
 
     if (!$result) {
         $error = mysqli_error($connection);
         trigger_error("Failed SQL-query: \"{$query}\" with error: $error", E_USER_ERROR);
         die;
     }
+    return $stmt;
+}
 
-    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+function fetch_all($connection, $query, $data = [])
+{
+    $executed = prepare($connection, $query, $data);
+    $result = mysqli_fetch_all(mysqli_stmt_get_result($executed), MYSQLI_ASSOC);
     return $result;
 }
+
+function insert_into($connection, $query, $data = [])
+{
+    $executed = prepare($connection, $query, $data);
+    $result = mysqli_stmt_insert_id($executed);
+    return $result;
+}
+
 
 /**
  * @return mysqli
@@ -84,7 +102,8 @@ function setup_connection(): mysqli
     return $connection;
 }
 
-function get_uploaded_file_name($fieldName) {
+function get_uploaded_file_name($fieldName)
+{
     // Undefined | Multiple Files | $_FILES Corruption Attack
     // If this request falls under any of them, treat it invalid.
     if (
