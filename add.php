@@ -35,13 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $value = intval($value);
                 if ($value <= 0) {
                     $errors[$key] = 'Это поле должно быть больше 0';
+                } else {
+                    $lot[$key] = $value;
                 }
                 break;
             case 'closed_at':
                 $close_time = strtotime($value);
-                $now = time();
-                if ($close_time < $now) {
-                    $errors[$key] = 'Дата закрытия не может быть в прошлом';
+                $tomorrow = strtotime('tomorrow');
+                if ($close_time < $tomorrow) {
+                    $errors[$key] = 'Дата закрытия должна быть не раньше чем завтра';
+                } else {
+                    $lot[$key] = date( 'Y-m-d H:i:s', $close_time );
                 }
                 break;
         }
