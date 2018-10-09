@@ -6,7 +6,6 @@ $lots = get_all_open_lots($connection);
 
 $config = [
     'title' => 'Заглавная',
-    'current_user' => $current_user,
     'content' => include_template('templates/main', [
         'categories' => $categories,
         'lots' => $lots

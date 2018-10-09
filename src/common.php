@@ -4,13 +4,14 @@ session_start();
 
 date_default_timezone_set('Europe/Moscow');
 
-$current_user = rand(0, 1) ? [
-    'name' => 'Женёк Пыхарь',
-    'avatar' => 'img/user.jpg'
-] : null;
-
 if (!isset($_SESSION[CURRENT_USER])) {
-    $_SESSION[CURRENT_USER] = null;
+    // if anonymous and page is not allowed for unauthenticated
+    if (isset($authorized_only)) {
+        http_response_code(403);
+        die();
+    } else {
+        $_SESSION[CURRENT_USER] = null;
+    }
 } else if (!isset($_SESSION[CURRENT_USER]['avatar_url'])) {
     $_SESSION[CURRENT_USER]['avatar_url'] = './img/user.jpg';
 }
