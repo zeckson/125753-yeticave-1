@@ -7,7 +7,7 @@
 //       image_url                            AS image,
 //       category.id                          AS category,
 //       count(bid.id)                        AS bids_count
-require_once '../src/form_utils.php';
+require_once 'src/form_utils.php';
 ?>
 <?= $navigation ?>
 <form class="form form--add-lot container <?= mark_if_true(!empty($errors), 'form--invalid') ?>" action="add.php"

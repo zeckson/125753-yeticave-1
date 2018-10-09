@@ -1,5 +1,5 @@
 <?php
-require_once '../src/form_utils.php';
+require_once 'src/form_utils.php';
 ?>
 <?= $navigation ?>
 <form class="form container <?= mark_if_true(!empty($errors), 'form--invalid') ?>"
@@ -52,6 +52,6 @@ require_once '../src/form_utils.php';
         <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
     <?php endif; ?>
     <button type="submit" class="button">Зарегистрироваться</button>
-    <a class="text-link" href="#">Уже есть аккаунт</a>
+    <a class="text-link" href="index.php">Уже есть аккаунт</a>
 </form>
   

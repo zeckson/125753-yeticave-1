@@ -1,8 +1,6 @@
 <?php
-date_default_timezone_set('Europe/Moscow');
-
-require_once 'src/utils.php';
-$connection = setup_connection();
+require_once 'src/common.php';
+$current_user = null;
 
 require_once 'src/user_queries.php';
 $user = [];
@@ -45,10 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $config = [
     'title' => 'Регистрация',
     'current_user' => null,
-    'content' => include_template('templates/add_lot', [
+    'content' => include_template('templates/register', [
         'navigation' => $navigation,
-        'categories' => $categories,
-        'lot' => $user,
+        'user' => $user,
         'errors' => $errors
     ]),
     'navigation' => $navigation
