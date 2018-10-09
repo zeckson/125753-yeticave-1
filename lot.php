@@ -12,7 +12,6 @@ if ($lot == null) {
 $config = [
     'title' => 'Лот "' . $lot['name'] . '""',
     'content' => include_template('templates/lot', [
-        'navigation' => $navigation,
         'lot' => $lot
     ]),
     'navigation' => $navigation

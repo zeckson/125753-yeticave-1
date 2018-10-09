@@ -1,7 +1,6 @@
 <?php
 require_once 'src/form_utils.php';
 ?>
-<?= $navigation ?>
 <form class="form container <?= mark_if_true(!empty($errors), 'form--invalid') ?>"
       enctype="multipart/form-data" action="register.php" method="post">
     <h2>Регистрация нового аккаунта</h2>

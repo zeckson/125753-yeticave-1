@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $config = [
     'title' => 'Добавить лот',
     'content' => include_template('templates/add_lot', [
-        'navigation' => $navigation,
         'categories' => $categories,
         'lot' => $lot,
         'errors' => $errors

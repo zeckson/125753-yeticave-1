@@ -11,7 +11,6 @@ require_once 'src/lot_format.php';
 $time_left = format_period(time_left());
 $minimal_bid = format_price($lot['price'] + $lot['bid_step']);
 ?>
-<?= $navigation ?>
 <section class="lot-item container">
     <h2><?= $lot['name'] ?></h2>
     <div class="lot-item__content">

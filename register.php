@@ -42,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $config = [
     'title' => 'Регистрация',
     'content' => include_template('templates/register', [
-        'navigation' => $navigation,
         'user' => $user,
         'errors' => $errors
     ]),
