@@ -1,6 +1,10 @@
 <?php
 require_once 'src/common.php';
-$current_user = null;
+
+if (isset($_SESSION[CURRENT_USER])) {
+    header('Location: /index.php');
+    die();
+}
 
 require_once 'src/user_queries.php';
 $user = [];
@@ -34,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $config = [
     'title' => 'Вход',
-    CURRENT_USER => null,
     'content' => include_template('templates/login', [
         'navigation' => $navigation,
         'user' => $user,
