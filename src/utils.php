@@ -66,6 +66,12 @@ function prepare($connection, $query, $data)
     return $stmt;
 }
 
+/**
+ * @param $connection
+ * @param $query
+ * @param array $data
+ * @return array|null
+ */
 function fetch_all($connection, $query, $data = [])
 {
     $executed = prepare($connection, $query, $data);
@@ -73,6 +79,12 @@ function fetch_all($connection, $query, $data = [])
     return $result;
 }
 
+/**
+ * @param $connection
+ * @param $query
+ * @param array $data
+ * @return mixed
+ */
 function insert_into($connection, $query, $data = [])
 {
     $executed = prepare($connection, $query, $data);
