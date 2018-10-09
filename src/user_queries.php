@@ -13,7 +13,7 @@ function get_user_by_email($connection, $email)
 
 function create_new_user($connection, $user)
 {
-    $password = password_hash($user['password'], PASSWORD_BCRYPT);
+    $password = password_hash($user['password'].$user['email'], PASSWORD_BCRYPT);
 
     $fields = ['name', 'email', 'password', 'info'];
     if ($user['avatar_url']) {
