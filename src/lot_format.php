@@ -43,3 +43,13 @@ function format_period($time_left)
 
     return ($hours < 10 ? '0'.$hours : $hours) . ':' . ($minutes < 10 ? '0'.$minutes : $minutes);
 }
+
+function format_relative_time($time)
+{
+    // TODO:
+    // 5 минут назад
+    // час назад
+    // 19.03.17 в 08:21
+    $time = strtotime($time);
+    return date('d.m.y в H:i', $time);
+}
