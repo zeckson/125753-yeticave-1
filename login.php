@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$logged_in_user) {
             $errors['password'] = 'Неверный пароль';
         } else {
+            $_SESSION[CURRENT_USER] = $logged_in_user;
             header('Location: /index.php');
             die();
         }
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $config = [
     'title' => 'Вход',
-    'current_user' => null,
+    CURRENT_USER => null,
     'content' => include_template('templates/login', [
         'navigation' => $navigation,
         'user' => $user,
