@@ -1,19 +1,9 @@
 <?php
-date_default_timezone_set('Europe/Moscow');
-
-require_once 'src/utils.php';
-$connection = setup_connection();
+require_once 'src/common.php';
 
 require_once 'src/user_queries.php';
 $current_user = get_random_user($connection)[0];
 $current_user['avatar'] = 'img/user.jpg';
-
-require_once 'src/category_queries.php';
-$categories = get_all_categories($connection);
-
-$navigation = include_template('templates/navigation', [
-    'categories' => $categories
-]);
 
 $lot = [];
 $errors = [];
@@ -52,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        $lot['image'] = get_uploaded_file_name('image');
+        $lot['image'] = get_required_file_name('image');
     } catch (RuntimeException $e) {
         $errors['image'] = $e->getMessage();
     }

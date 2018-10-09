@@ -15,7 +15,7 @@ CREATE TABLE users (
 
   name       VARCHAR(80)  NOT NULL,
   email      VARCHAR(80)  NOT NULL UNIQUE,
-  password   VARCHAR(40)  NOT NULL,
+  password   BINARY(60)  NOT NULL, # bcrypt uses 60-length fixed string
 
   info       TEXT,
   avatar_url VARCHAR(100)

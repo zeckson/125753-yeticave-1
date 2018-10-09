@@ -7,17 +7,7 @@
 //       image_url                            AS image,
 //       category.id                          AS category,
 //       count(bid.id)                        AS bids_count
-
-function mark(&$var, $value = 'form__item--invalid')
-{
-    return mark_if_true(isset($var), $value);
-}
-
-function mark_if_true($condition, $value = 'form__item--invalid')
-{
-    return $condition ? $value : '';
-}
-
+require_once 'src/form_utils.php';
 ?>
 <?= $navigation ?>
 <form class="form form--add-lot container <?= mark_if_true(!empty($errors), 'form--invalid') ?>" action="add.php"
