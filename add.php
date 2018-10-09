@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        $lot['image'] = get_uploaded_file_name('image');
+        $lot['image'] = get_required_file_name('image');
     } catch (RuntimeException $e) {
         $errors['image'] = $e->getMessage();
     }

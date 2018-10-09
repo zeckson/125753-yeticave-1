@@ -56,7 +56,7 @@ function prepare($connection, $query, $data)
         mysqli_stmt_bind_param(...$values);
     }
 
-    $result =mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_execute($stmt);
 
     if (!$result) {
         $error = mysqli_error($connection);
@@ -102,6 +102,10 @@ function setup_connection(): mysqli
     return $connection;
 }
 
+/**
+ * @param $fieldName
+ * @return null|string
+ */
 function get_uploaded_file_name($fieldName)
 {
     // Undefined | Multiple Files | $_FILES Corruption Attack
@@ -110,7 +114,7 @@ function get_uploaded_file_name($fieldName)
         !isset($_FILES[$fieldName]['error']) ||
         is_array($_FILES[$fieldName]['error'])
     ) {
-        throw new RuntimeException('Файл не передан.');
+        return null;
     }
 
     // Check $_FILES[$fieldName]['error'] value.
@@ -118,7 +122,7 @@ function get_uploaded_file_name($fieldName)
         case UPLOAD_ERR_OK:
             break;
         case UPLOAD_ERR_NO_FILE:
-            throw new RuntimeException('Файл не выбран.');
+            return null;
         case UPLOAD_ERR_INI_SIZE:
         case UPLOAD_ERR_FORM_SIZE:
             throw new RuntimeException('Файл слишком большой.');
@@ -167,4 +171,17 @@ function get_uploaded_file_name($fieldName)
     }
 
     return $image_url;
+}
+
+/**
+ * @param $fieldName
+ * @return string
+ */
+function get_required_file_name($fieldName)
+{
+    $fileName = get_uploaded_file_name($fieldName);
+    if ($fileName == null) {
+        throw new RuntimeException('Файл не передан.');
+    }
+    return $fileName;
 }
