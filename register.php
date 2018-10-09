@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($errors)) {
         $id = create_new_user($connection, $user);
-        header('Location: /index.php'); //
+        header('Location: /login.php'); //
     }
 }
 $config = [
