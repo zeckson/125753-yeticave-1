@@ -25,8 +25,8 @@ VALUES (0, 'Доски и лыжи'),
 
 # setup test users
 INSERT INTO users (name, email, password)
-VALUES ('Евгеша Бандит', 'evgesha@bandit.com', sha1(CONCAT(email, '12345'))),
-       ('Витька Хромой', 'vitaly@bandit.com', sha1(CONCAT(email, 'secret')));
+VALUES ('Евгеша Бандит', 'evgesha@bandit.com', sha2(CONCAT(email, '12345'), 224)),
+       ('Витька Хромой', 'vitaly@bandit.com', sha2(CONCAT(email, 'secret'), 224));
 
 SET @evgesha = -1;
 SET @vitka = -1;
