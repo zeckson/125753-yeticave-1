@@ -10,6 +10,15 @@ function mark_if_true($condition, $value = 'form__item--invalid')
 }
 
 /**
+ * @param $value
+ * @return string
+ */
+function write_value(&$value)
+{
+    return isset($value) ? htmlspecialchars($value) : '';
+}
+
+/**
  * @param $fieldName
  * @return null|string
  */

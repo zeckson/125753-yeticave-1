@@ -14,9 +14,14 @@ function get_user_by_email($connection, $email)
 function create_new_user($connection, $user)
 {
     $password = password_hash($user['password'], PASSWORD_BCRYPT);
-    return insert_into($connection, "
-INSERT INTO users (name, email, password, info, avatar_url)
-VALUE (?, ?, ?, ?, ?);",
+
+    $fields = ['name', 'email', 'password', 'info'];
+    if ($user['avatar_url']) {
+        $fields[] = 'avatar_url';
+    }
+
+    $query = insert_statement($fields);
+    return insert_into($connection, "INSERT INTO users $query;",
         [$user['name'], $user['email'], $password, $user['info'], $user['avatar_url']]
     );
 }

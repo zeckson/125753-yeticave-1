@@ -71,6 +71,16 @@ function insert_into($connection, $query, $data = [])
     return $result;
 }
 
+/**
+ * @param $fields
+ * @return string
+ */
+function insert_statement($fields)
+{
+    return '(' . implode(',', $fields) . ') 
+    VALUE (' . implode(',', array_fill(0, sizeof($fields), '?')) . ')';
+}
+
 
 /**
  * @return mysqli

@@ -8,7 +8,7 @@ require_once 'src/form_utils.php';
     <div class="form__item <?= mark($errors['email']) ?>">
         <label for="email">E-mail*</label>
         <input id="email" type="text" name="email"
-               value="<?= htmlspecialchars($user['email']) ?>" placeholder="Введите e-mail" required>
+               value="<?= write_value($user['email']) ?>" placeholder="Введите e-mail" required>
         <span class="form__error"><?= $errors['email'] ?></span>
     </div>
     <div class="form__item <?= mark($errors['password']) ?>">
@@ -19,19 +19,18 @@ require_once 'src/form_utils.php';
     <div class="form__item <?= mark($errors['name']) ?>">
         <label for="name">Имя*</label>
         <input id="name" type="text" name="name"
-               value="<?= htmlspecialchars($user['name']) ?>" placeholder="Введите имя" required>
+               value="<?= write_value($user['name']) ?>" placeholder="Введите имя" required>
         <span class="form__error"><?= $errors['name'] ?></span>
     </div>
     <div class="form__item <?= mark($errors['info']) ?>">
         <label for="message">Контактные данные*</label>
-        <textarea id="message" name="info" placeholder="Напишите как с вами связаться" required>
-            <?= htmlspecialchars($user['info']) ?>
-        </textarea>
+        <textarea id="message" name="info"
+                  placeholder="Напишите как с вами связаться" required><?= write_value($user['info']) ?></textarea>
         <span class="form__error">Напишите как с вами связаться</span>
     </div>
     <div class="form__item form__item--file form__item--last <?= mark($errors['avatar_url']) ?>">
         <label>Аватар</label>
-        <?php if ($user['avatar_url']): ?>
+        <?php if (isset($user['avatar_url'])): ?>
             <div class="preview">
                 <button class="preview__remove" type="button">x</button>
                 <div class="preview__img">
