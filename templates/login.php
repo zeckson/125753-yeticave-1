@@ -1,7 +1,6 @@
 <?php
 require_once 'src/form_utils.php';
 ?>
-<?= $navigation ?>
 <form class="form container <?= mark_if_true(!empty($errors), 'form--invalid') ?>" action="login.php"
       enctype="application/x-www-form-urlencoded" method="post">
     <h2>Вход</h2>

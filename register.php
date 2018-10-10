@@ -1,6 +1,5 @@
 <?php
 require_once 'src/common.php';
-$current_user = null;
 
 require_once 'src/user_queries.php';
 $user = [];
@@ -42,9 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $config = [
     'title' => 'Регистрация',
-    'current_user' => null,
     'content' => include_template('templates/register', [
-        'navigation' => $navigation,
         'user' => $user,
         'errors' => $errors
     ]),

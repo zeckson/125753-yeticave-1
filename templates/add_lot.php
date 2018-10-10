@@ -9,7 +9,6 @@
 //       count(bid.id)                        AS bids_count
 require_once 'src/form_utils.php';
 ?>
-<?= $navigation ?>
 <form class="form form--add-lot container <?= mark_if_true(!empty($errors), 'form--invalid') ?>" action="add.php"
       enctype="multipart/form-data" method="post">
     <!-- form--invalid -->
@@ -17,7 +16,7 @@ require_once 'src/form_utils.php';
     <div class="form__container-two">
         <div class="form__item <?= mark($errors['name']) ?>">
             <label for="lot-name">Наименование</label>
-            <input id="lot-name" value="<?= htmlspecialchars($lot['name'] ?? '') ?>" type="text" name="name"
+            <input id="lot-name" value="<?= write_value($lot['name']) ?>" type="text" name="name"
                    placeholder="Введите наименование лота" required>
             <span class="form__error">Введите наименование лота</span>
         </div>
@@ -26,7 +25,7 @@ require_once 'src/form_utils.php';
             <select id="category" name="category" required>
                 <?php foreach ($categories as $category): ?>
                     <option <?= isset($lot['category']) ? ($category['id'] === $lot['category'] ?: 'selected') : '' ?>
-                            value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
+                            value="<?= $category['id'] ?>"><?= write_value($category['name']) ?></option>
                 <?php endforeach; ?>
             </select>
             <span class="form__error">Выберите категорию</span>
@@ -35,7 +34,7 @@ require_once 'src/form_utils.php';
     <div class="form__item form__item--wide <?= mark($errors['description']) ?>">
         <label for="message">Описание</label>
         <textarea id="message" name="description" placeholder="Напишите описание лота"
-                  required><?= htmlspecialchars($lot['description'] ?? '') ?></textarea>
+                  required><?= write_value($lot['description']) ?></textarea>
         <span class="form__error">Напишите описание лота</span>
     </div>
     <div class="form__item form__item--file <?= mark($lot['image'], 'form__item--uploaded') ?> <?= mark($errors['image']) ?>">
@@ -73,7 +72,7 @@ require_once 'src/form_utils.php';
         <div class="form__item <?= mark($errors['closed_at']) ?>">
             <label for="lot-date">Дата окончания торгов</label>
             <input class="form__input-date" id="lot-date" type="date" name="closed_at"
-                   value="<?= htmlspecialchars($lot['closed_at'] ?? '') ?>" required>
+                   value="<?= write_value($lot['closed_at']) ?>" required>
             <span class="form__error"><?= $errors['closed_at'] ?></span>
         </div>
     </div>

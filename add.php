@@ -1,9 +1,8 @@
 <?php
+$authorized_only = true;
 require_once 'src/common.php';
 
 require_once 'src/user_queries.php';
-$current_user = get_random_user($connection)[0];
-$current_user['avatar'] = 'img/user.jpg';
 
 $lot = [];
 $errors = [];
@@ -49,15 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($errors)) {
         require_once 'src/lot_queries.php';
-        $id = insert_new_lot($connection, $lot, $current_user);
+        $id = insert_new_lot($connection, $lot, $_SESSION[CURRENT_USER]);
         header("Location: /lot.php?id=" . $id); //
     }
 }
 $config = [
     'title' => 'Добавить лот',
-    'current_user' => $current_user,
     'content' => include_template('templates/add_lot', [
-        'navigation' => $navigation,
         'categories' => $categories,
         'lot' => $lot,
         'errors' => $errors

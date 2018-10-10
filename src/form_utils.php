@@ -15,7 +15,7 @@ function mark_if_true($condition, $value = 'form__item--invalid')
  */
 function write_value(&$value)
 {
-    return isset($value) ? htmlspecialchars($value) : '';
+    return isset($value) ? htmlspecialchars($value, ENT_QUOTES) : '';
 }
 
 /**
