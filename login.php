@@ -1,7 +1,7 @@
 <?php
 require_once 'src/common.php';
 
-if (isset($_SESSION[CURRENT_USER])) {
+if (isset($_SESSION[SESSION_CURRENT_USER])) {
     header('Location: /index.php');
     die();
 }
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$logged_in_user) {
             $errors['password'] = 'Неверный пароль';
         } else {
-            $_SESSION[CURRENT_USER] = $logged_in_user;
+            $_SESSION[SESSION_CURRENT_USER] = $logged_in_user;
             header('Location: /index.php');
             die();
         }
