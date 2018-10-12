@@ -19,12 +19,12 @@
                 <input type="search" name="search" placeholder="Поиск лота">
                 <input class="main-header__search-btn" type="submit" name="find" value="Найти">
             </form>
-            <?php if (isset($_SESSION[CURRENT_USER])): ?>
+            <?php if (is_logged_in()): ?>
                 <a class="main-header__add-lot button" href="/add.php">Добавить лот</a>
             <?php endif; ?>
             <nav class="user-menu">
 
-                <?= include_template('templates/user_menu', ['current_user' => $_SESSION[CURRENT_USER]]); ?>
+                <?= include_template('templates/user_menu', ['current_user' => get_session_current_user()]); ?>
 
             </nav>
         </div>

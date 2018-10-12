@@ -10,6 +10,7 @@ function prepare_lot_select_query($where)
        bid_step,
        lot.created_at,
        lot.closed_at,
+       lot.author_id,
        IFNULL(MAX(bid.amount), start_price) AS price,
        image_url                            AS image,
        category.name                        AS category,

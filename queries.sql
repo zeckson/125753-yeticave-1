@@ -53,7 +53,7 @@ VALUES ('2014 Rossignol District Snowboard', 0, 10999, 'img/lot-1.jpg', NOW() + 
         @evgesha),
        ('Ботинки для сноуборда DC Mutiny Charocal', 2, 10999, 'img/lot-4.jpg', NOW() + INTERVAL 1 WEEK, @vitka),
        ('Куртка для сноуборда DC Mutiny Charocal', 3, 7500, 'img/lot-5.jpg', NOW() + INTERVAL 1 WEEK, @evgesha),
-       ('Маска Oakley Canopy', 5, 5400, 'img/lot-§.jpg', NOW() + INTERVAL 1 WEEK, @vitka);
+       ('Маска Oakley Canopy', 5, 5400, 'img/lot-6.jpg', NOW() + INTERVAL 1 WEEK, @vitka);
 
 # closed lots
 INSERT INTO lots (name, category_id, start_price, bid_step, created_at, closed_at, image_url, author_id, winner_id)
