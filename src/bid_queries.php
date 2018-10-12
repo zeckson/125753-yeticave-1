@@ -17,7 +17,7 @@ ORDER BY b.created_at DESC;";
 
 function insert_new_bid($connection, $amount, $lot_id, $current_user)
 {
-    $query = "INSERT INTO bids PARTITION (amount, owner_id, lot_id) VALUE (?, ?, ?);";
+    $query = "INSERT INTO bids (amount, owner_id, lot_id) VALUE (?, ?, ?);";
 
     $result = insert_into($connection, $query, [$amount, $current_user['id'], $lot_id]);
     return $result;
