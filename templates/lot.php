@@ -34,14 +34,16 @@ $minimal_bid = format_price($lot['price'] + $lot['bid_step']);
                         Мин. ставка <span><?= $minimal_bid ?></span>
                     </div>
                 </div>
-                <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
-                    <p class="lot-item__form-item">
-                        <label for="cost">Ваша ставка</label>
-                        <input id="cost" type="number" name="cost" min="<?= $lot['price'] + $lot['bid_step'] ?>"
-                               placeholder="<?= $minimal_bid ?>">
-                    </p>
-                    <button type="submit" class="button">Сделать ставку</button>
-                </form>
+                <?php if (isset($_SESSION[SESSION_CURRENT_USER])): ?>
+                    <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
+                        <p class="lot-item__form-item">
+                            <label for="cost">Ваша ставка</label>
+                            <input id="cost" type="number" name="cost" min="<?= $lot['price'] + $lot['bid_step'] ?>"
+                                   placeholder="<?= $minimal_bid ?>">
+                        </p>
+                        <button type="submit" class="button">Сделать ставку</button>
+                    </form>
+                <?php endif ?>
             </div>
             <?php if (isset($bids)): ?>
                 <div class="history">
