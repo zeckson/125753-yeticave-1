@@ -41,7 +41,7 @@ if (empty($errors)) {
 }
 
 require_once 'src/lot_utils.php';
-render_lot_page($connection, $navigation, $lot_id, [
+render_lot_page($connection, $navigation, $lot, [
     'bid' => $bid,
     'errors' => $errors
 ]);
