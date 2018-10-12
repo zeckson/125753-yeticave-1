@@ -34,7 +34,7 @@ $minimal_bid = format_price($lot['price'] + $lot['bid_step']);
                         Мин. ставка <span><?= $minimal_bid ?></span>
                     </div>
                 </div>
-                <?php if (isset($_SESSION[SESSION_CURRENT_USER])): ?>
+                <?php if (is_logged_in()): ?>
                     <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
                         <p class="lot-item__form-item">
                             <label for="cost">Ваша ставка</label>

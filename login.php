@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$logged_in_user) {
             $errors['password'] = 'Неверный пароль';
         } else {
-            $_SESSION[SESSION_CURRENT_USER] = $logged_in_user;
+            set_session_current_user($logged_in_user);
             header('Location: /index.php');
             die();
         }
