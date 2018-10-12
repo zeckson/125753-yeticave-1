@@ -20,7 +20,7 @@ function set_session_current_user($user): void
     $_SESSION[SESSION_CURRENT_USER] = $user;
 }
 
-function get_session_current_user(): ?object
+function get_session_current_user(): ?array
 {
     return $_SESSION[SESSION_CURRENT_USER] ?? null;
 }
