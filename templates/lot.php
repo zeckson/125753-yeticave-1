@@ -9,7 +9,7 @@
 //       count(bid.id)                        AS bids_count
 require_once 'src/lot_format.php';
 $time_left = format_period(time_left());
-$minimal_bid = format_price($lot['price'] + $lot['bid_step']);
+$minimal_bid = $lot['price'] + $lot['bid_step'];
 ?>
 <section class="lot-item container">
     <h2><?= $lot['name'] ?></h2>
@@ -31,18 +31,11 @@ $minimal_bid = format_price($lot['price'] + $lot['bid_step']);
                         <span class="lot-item__cost"><?= format_price($lot['price']) ?></span>
                     </div>
                     <div class="lot-item__min-cost">
-                        Мин. ставка <span><?= $minimal_bid ?></span>
+                        Мин. ставка <span><?= format_price($minimal_bid) ?></span>
                     </div>
                 </div>
                 <?php if (is_logged_in()): ?>
-                    <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
-                        <p class="lot-item__form-item">
-                            <label for="cost">Ваша ставка</label>
-                            <input id="cost" type="number" name="cost" min="<?= $lot['price'] + $lot['bid_step'] ?>"
-                                   placeholder="<?= $minimal_bid ?>">
-                        </p>
-                        <button type="submit" class="button">Сделать ставку</button>
-                    </form>
+                    <?= include_template("templates/add_bid", array_merge(['lot' => $lot], $new_bid)) ?>
                 <?php endif ?>
             </div>
             <?php if (isset($bids)): ?>
