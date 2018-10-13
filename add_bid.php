@@ -24,6 +24,7 @@ if ($lot == null) {
     die();
 }
 
+require_once 'src/utils/lot.php';
 if (!can_add_bid($connection, $lot)) {
     http_response_code(FORBIDDEN_HTTP_STATUS_CODE);
     die();
@@ -48,7 +49,6 @@ if (empty($errors)) {
     die();
 }
 
-require_once 'src/utils/lot.php';
 render_lot_page($connection, $navigation, $lot, [
     'bid' => $bid,
     'errors' => $errors
