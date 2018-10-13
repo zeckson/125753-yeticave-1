@@ -12,7 +12,7 @@ function get_lot_page_link_by_id($lot_id): string
 
 function get_add_lot_page_link(): string
 {
-    return "add.php";
+    return "add_lot.php";
 }
 
 function get_add_bid_page_link($lot_id): string
