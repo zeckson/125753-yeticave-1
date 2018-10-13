@@ -13,12 +13,12 @@ function get_category_class($category)
     $name = mb_strtolower($category['name'], 'utf-8');
     return $category_2_class[$name];
 }
-
+require_once 'src/links.php';
 ?>
 <ul class="promo__list">
     <?php foreach ($categories as $category): ?>
         <li class="promo__item promo__item--<?= get_category_class($category) ?>">
-            <a class="promo__link" href="pages/all-lots.html"><?= $category['name'] ?></a>
+            <a class="promo__link" href="<?= get_category_link($category) ?>"><?= $category['name'] ?></a>
         </li>
     <?php endforeach; ?>
 </ul>
