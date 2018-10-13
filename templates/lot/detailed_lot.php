@@ -7,6 +7,7 @@
 //       image_url                            AS image,
 //       category.name                        AS category,
 //       count(bid.id)                        AS bids_count
+/** @noinspection PhpIncludeInspection */
 require_once 'src/lot_format.php';
 $time_left = format_period(time_left());
 $minimal_bid = $lot['price'] + $lot['bid_step'];
@@ -18,6 +19,10 @@ function can_add_bid($lot) {
     // Can't add bid to my lot
     return get_session_current_user()['id'] !== $lot['author_id'];
 }
+
+/**
+ * @param array $new_bid
+ */
 ?>
 <section class="lot-item container">
     <h2><?= $lot['name'] ?></h2>
@@ -43,7 +48,7 @@ function can_add_bid($lot) {
                     </div>
                 </div>
                 <?php if (can_add_bid($lot)): ?>
-                    <?= include_template("templates/add_bid", array_merge(['lot' => $lot], $new_bid)) ?>
+                    <?= include_template("templates/lot/add_bid.php", array_merge(['lot' => $lot], $new_bid)) ?>
                 <?php endif ?>
             </div>
             <?php if (isset($bids)): ?>

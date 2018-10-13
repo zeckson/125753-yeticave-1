@@ -2,7 +2,7 @@
 require_once 'db.php';
 require_once 'form_utils.php';
 
-function include_template($src, array $data = null)
+function include_template(string $src, array $data = null): string
 {
 
     $src = str_ends_with($src, '.php') ? $src : $src . '.php';
@@ -22,4 +22,9 @@ function include_template($src, array $data = null)
     $result = ob_get_clean();
 
     return $result;
+}
+
+function render_page(array $page): void
+{
+    print include_template('templates/layout.php', $page);
 }

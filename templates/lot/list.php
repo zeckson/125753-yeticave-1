@@ -7,6 +7,7 @@
 //       image_url                            AS image,
 //       category.name                        AS category,
 //       count(bid.id)                        AS bids_count
+/** @noinspection PhpIncludeInspection */
 require_once 'src/lot_format.php';
 ?>
 <div class="container">

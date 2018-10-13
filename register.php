@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['avatar_url'] = $e->getMessage();
     }
 
-    if(get_user_by_email($connection, $user['email'])) {
+    if (get_user_by_email($connection, $user['email'])) {
         $errors['email'] = 'Пользователь с таким email уже создан';
     }
 
@@ -51,5 +51,6 @@ $config = [
     ]),
     'navigation' => $navigation
 ];
-print include_template('templates/layout', $config);
+
+render_page($config);
 

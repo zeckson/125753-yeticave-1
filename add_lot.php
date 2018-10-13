@@ -61,12 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $config = [
     'title' => 'Добавить лот',
-    'content' => include_template('templates/add_lot', [
+    'content' => include_template('templates/lot/add_lot.php', [
         'categories' => $categories,
         'lot' => $lot,
         'errors' => $errors
     ]),
     'navigation' => $navigation
 ];
-print include_template('templates/layout', $config);
+
+render_page($config);
 

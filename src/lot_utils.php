@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpIncludeInspection */
 /**
  * @param $connection
  * @param $navigation
@@ -24,5 +25,5 @@ function render_lot_page($connection, $navigation, $lot, $new_bid = [
         'navigation' => $navigation
     ];
 
-    print include_template('templates/layout.php', $config);
+    render_page($config);
 }

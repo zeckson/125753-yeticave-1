@@ -13,6 +13,4 @@ $config = [
     ]),
     'navigation' => $navigation];
 
-$html = include_template('templates/layout', $config);
-
-print $html;
+render_page($config);

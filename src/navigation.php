@@ -14,7 +14,7 @@ $current_category = array_reduce($categories,
             return $carry;
         }, null) ?? null;
 
-$navigation = include_template('templates/navigation', [
+$navigation = include_template('templates/common/navigation.php', [
     'categories' => $categories,
     'current' => $current_category
 ]);

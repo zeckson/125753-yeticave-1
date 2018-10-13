@@ -7,6 +7,7 @@
 //       image_url                            AS image,
 //       category.id                          AS category,
 //       count(bid.id)                        AS bids_count
+/** @noinspection PhpIncludeInspection */
 require_once 'src/form_utils.php';
 $minimal_bid = $lot['price'] + $lot['bid_step'];
 ?>

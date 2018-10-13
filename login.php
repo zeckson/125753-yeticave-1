@@ -45,5 +45,5 @@ $config = [
     ]),
     'navigation' => $navigation
 ];
-print include_template('templates/layout', $config);
 
+render_page($config);
