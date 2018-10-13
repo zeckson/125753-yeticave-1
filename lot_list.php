@@ -10,7 +10,8 @@ $config = [
         'category' => $current_category,
         'lots' => $lots
     ]),
-    'navigation' => $navigation];
+    'navigation' => $navigation
+];
 
 $html = include_template('templates/layout', $config);
 
