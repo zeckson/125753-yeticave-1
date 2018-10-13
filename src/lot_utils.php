@@ -16,7 +16,7 @@ function render_lot_page($connection, $navigation, $lot, $new_bid = [
 
     $config = [
         'title' => 'Лот "' . $lot['name'] . '""',
-        'content' => include_template('templates/lot', [
+        'content' => include_template('templates/lot/detailed_lot.php', [
             'lot' => $lot,
             'bids' => $bids,
             'new_bid' => $new_bid
@@ -24,5 +24,5 @@ function render_lot_page($connection, $navigation, $lot, $new_bid = [
         'navigation' => $navigation
     ];
 
-    print include_template('templates/layout', $config);
+    print include_template('templates/layout.php', $config);
 }
