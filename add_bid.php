@@ -31,7 +31,7 @@ $amountFieldName = 'amount';
 $amount = intval($bid[$amountFieldName]);
 
 $minimal_bid = $lot['price'] + $lot['bid_step'];
-if ($amount <= $minimal_bid) {
+if ($amount < $minimal_bid) {
     $errors[$amountFieldName] = "Ставка не может быть меньше $minimal_bid";
 }
 
