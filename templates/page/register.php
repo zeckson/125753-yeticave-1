@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpIncludeInspection */
 require_once 'src/form_utils.php';
 require_once 'src/links.php';
 ?>
