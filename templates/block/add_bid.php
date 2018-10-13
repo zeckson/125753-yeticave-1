@@ -7,7 +7,7 @@
 //       image_url                            AS image,
 //       category.id                          AS category,
 //       count(bid.id)                        AS bids_count
-require_once 'src/form_utils.php';
+require_once 'src/html_utils.php';
 $minimal_bid = $lot['price'] + $lot['bid_step'];
 ?>
 <form class="lot-item__form <?= mark_if_true(!empty($errors), 'form--invalid') ?>"
