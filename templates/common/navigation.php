@@ -1,9 +1,8 @@
 <?php
-/** @noinspection PhpIncludeInspection */
 require_once 'src/form_utils.php';
 require_once 'src/links.php';
 /**
- * @param $current
+ * @var array $current
  */
 ?>
 <nav class="nav">

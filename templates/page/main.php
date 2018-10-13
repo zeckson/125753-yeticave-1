@@ -10,7 +10,7 @@
     </div>
     <ul class="lots__list">
         <?php foreach ($lots as $lot): ?>
-            <?= include_template('templates/lot/lot_card.php', ['lot' => $lot]) ?>
+            <?= include_template('templates/block/lot_card.php', ['lot' => $lot]) ?>
         <?php endforeach; ?>
     </ul>
 </section>

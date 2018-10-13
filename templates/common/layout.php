@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpIncludeInspection */
 require_once 'src/links.php';
 /**
  * @var string $title
