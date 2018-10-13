@@ -1,6 +1,6 @@
 <?php
 $authorized_only = true;
-require_once 'src/common.php';
+require_once 'src/include/common.php';
 
 require_once 'src/user_queries.php';
 
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (empty($errors)) {
             require_once 'src/lot_queries.php';
             $id = insert_new_lot($connection, $lot, get_session_current_user());
-            require_once 'src/links.php';
+            require_once 'src/utils/links.php';
             $link = get_lot_page_link_by_id($id);
             header("Location: $link"); //
         }

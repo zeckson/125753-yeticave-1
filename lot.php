@@ -6,7 +6,7 @@ if ($lot_id <= 0) {
     die();
 }
 
-require_once 'src/common.php';
+require_once 'src/include/common.php';
 
 require_once 'src/lot_queries.php';
 $lot = get_lot_by_id($connection, $lot_id);
@@ -16,5 +16,5 @@ if ($lot == null) {
     die();
 }
 
-require_once 'src/lot_utils.php';
+require_once 'src/utils/lot.php';
 render_lot_page($connection, $navigation, $lot);

@@ -1,6 +1,6 @@
 <?php
-require_once 'src/common.php';
-require_once 'src/links.php';
+require_once 'src/include/common.php';
+require_once 'src/utils/links.php';
 $index = get_index_page_link();
 if (isset($_SESSION[SESSION_CURRENT_USER])) {
     header("Location: $index");

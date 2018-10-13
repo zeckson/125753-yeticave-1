@@ -1,6 +1,6 @@
 <?php
-require_once 'src/html_utils.php';
-require_once 'src/links.php';
+require_once 'src/utils/html.php';
+require_once 'src/utils/links.php';
 /**
  * @var array $current
  */

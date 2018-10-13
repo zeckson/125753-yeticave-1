@@ -1,5 +1,5 @@
 <?php
-include_once 'utils.php';
+include_once 'src/utils/db.php';
 
 function prepare_lot_select_query($where)
 {
@@ -25,7 +25,7 @@ ORDER BY lot.created_at DESC";
 
 function get_all_open_lots($connection, $cat_id = -1)
 {
-    $now = date("Y-m-d H:i:s");
+    $now = mysqli_time_format();
     $where = "TIMESTAMP('$now') < lot.closed_at";
     if ($cat_id >= 0) {
         $where = $where." AND lot.category_id = $cat_id";

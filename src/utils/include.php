@@ -1,7 +1,4 @@
 <?php
-require_once 'db.php';
-require_once 'html_utils.php';
-
 function include_template(string $src, array $data = null): string
 {
 

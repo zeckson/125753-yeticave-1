@@ -1,5 +1,5 @@
 <?php
-require_once 'src/links.php';
+require_once 'src/utils/links.php';
 /**
  * @var string $title
  * @var string $content

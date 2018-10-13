@@ -1,6 +1,5 @@
 <?php
-require_once 'db.php';
-require_once 'category_queries.php';
+require_once 'src/category_queries.php';
 
 $cat_id = intval($_GET['category'] ?? -1);
 
@@ -14,6 +13,7 @@ $current_category = array_reduce($categories,
             return $carry;
         }, null) ?? null;
 
+require_once 'src/utils/include.php';
 $navigation = include_template('templates/common/navigation.php', [
     'categories' => $categories,
     'current' => $current_category

@@ -7,7 +7,7 @@
 //       image_url                            AS image,
 //       category.name                        AS category,
 //       count(bid.id)                        AS bids_count
-require_once 'src/lot_format.php';
+require_once 'src/utils/lot.php';
 $time_left = format_period(time_left());
 $minimal_bid = $lot['price'] + $lot['bid_step'];
 

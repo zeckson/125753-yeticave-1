@@ -1,5 +1,5 @@
 <?php
-require_once 'src/common.php';
+require_once 'src/include/common.php';
 
 require_once 'src/user_queries.php';
 $user = [];
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) {
         create_new_user($connection, $user);
 
-        require_once 'src/links.php';
+        require_once 'src/utils/links.php';
         $login_link = get_login_page_link();
 
         header("Location: $login_link"); //
