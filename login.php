@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $config = [
     'title' => 'Вход',
-    'content' => include_template('templates/login', [
+    'content' => include_template('templates/page/login.php', [
         'user' => $user,
         'errors' => $errors
     ]),
