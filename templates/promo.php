@@ -18,7 +18,7 @@ require_once 'src/links.php';
 <ul class="promo__list">
     <?php foreach ($categories as $category): ?>
         <li class="promo__item promo__item--<?= get_category_class($category) ?>">
-            <a class="promo__link" href="<?= get_category_link($category) ?>"><?= $category['name'] ?></a>
+            <a class="promo__link" href="<?= get_category_page_link($category) ?>"><?= $category['name'] ?></a>
         </li>
     <?php endforeach; ?>
 </ul>
