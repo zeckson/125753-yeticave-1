@@ -53,6 +53,12 @@ function format_price($price)
     return $result . ' ₽';
 }
 
+function lot_is_closed(array $lot): bool
+{
+    $close_ts = strtotime($lot['closed_at']);
+    return $close_ts < time();
+}
+
 function time_left(string $closed_at): int
 {
     $now = time(); // PHP return timestamp in seconds =(
