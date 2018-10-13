@@ -31,9 +31,7 @@ require_once 'src/links.php';
                 <a class="main-header__add-lot button" href="<?= get_add_lot_page_link() ?>">Добавить лот</a>
             <?php endif; ?>
             <nav class="user-menu">
-
-                <?= include_template('templates/user_menu', ['current_user' => get_session_current_user()]); ?>
-
+                <?= include_template('templates/common/user_menu.php', ['current_user' => get_session_current_user()]); ?>
             </nav>
         </div>
     </header>
