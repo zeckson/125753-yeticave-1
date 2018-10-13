@@ -4,7 +4,8 @@ require_once 'form_utils.php';
 
 function include_template($src, array $data = null)
 {
-    $src = $src . '.php';
+
+    $src = str_ends_with($src, '.php') ? $src : $src . '.php';
     $result = '';
 
     if (!file_exists($src)) {
