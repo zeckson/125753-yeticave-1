@@ -53,12 +53,12 @@ function format_price($price)
     return $result . ' ₽';
 }
 
-function time_left()
+function time_left(string $closed_at): int
 {
-    $now = time(); // PHP return timestamp in seconds (WOOOOT????)
-    $tomorrow = strtotime('tomorrow');
+    $now = time(); // PHP return timestamp in seconds =(
+    $close_ts = strtotime($closed_at);
 
-    return $tomorrow - $now;
+    return $close_ts - $now;
 }
 
 function format_period($time_left)
@@ -69,7 +69,7 @@ function format_period($time_left)
     $hours = floor($minutes / 60);
     $minutes %= 60;
 
-    return ($hours < 10 ? '0'.$hours : $hours) . ':' . ($minutes < 10 ? '0'.$minutes : $minutes);
+    return ($hours < 10 ? '0' . $hours : $hours) . ':' . ($minutes < 10 ? '0' . $minutes : $minutes);
 }
 
 function format_relative_time($time)
