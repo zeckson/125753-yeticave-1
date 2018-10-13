@@ -26,5 +26,5 @@ function include_template(string $src, array $data = null): string
 
 function render_page(array $page): void
 {
-    print include_template('templates/layout.php', $page);
+    print include_template('templates/common/layout.php', $page);
 }

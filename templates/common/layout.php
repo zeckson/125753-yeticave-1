@@ -1,5 +1,10 @@
 <?php
+/** @noinspection PhpIncludeInspection */
 require_once 'src/links.php';
+/**
+ * @var string $title
+ * @var string $content
+ */
 ?>
 <!DOCTYPE html>
 <html lang="ru">
