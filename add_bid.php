@@ -11,7 +11,7 @@ if ($lot_id <= 0) {
 
 require_once 'src/links.php';
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    $link = get_lot_link_by_id($lot_id);
+    $link = get_lot_page_link_by_id($lot_id);
     header("Location: $link");
     die();
 }
@@ -38,7 +38,7 @@ if ($amount < $minimal_bid) {
 if (empty($errors)) {
     require_once 'src/bid_queries.php';
     $id = insert_new_bid($connection, $amount, $lot_id, get_session_current_user());
-    $link = get_lot_link_by_id($lot_id);
+    $link = get_lot_page_link_by_id($lot_id);
     header("Location: $link");
     die();
 }

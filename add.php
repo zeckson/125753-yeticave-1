@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         require_once 'src/lot_queries.php';
         $id = insert_new_lot($connection, $lot, get_session_current_user());
         require_once 'src/links.php';
-        $link = get_lot_link_by_id($id);
+        $link = get_lot_page_link_by_id($id);
         header("Location: $link"); //
     }
 }
