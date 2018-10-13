@@ -1,16 +1,15 @@
 <?php
-/**
- * @param $connection
- * @param $navigation
- * @param $lot_id
- * @param array $new_bid
- */
-function render_lot_page($connection, $navigation, $lot, $new_bid = [
-    'errors' => [],
-    'bid' => []
-])
+require_once 'src/bid_queries.php';
+
+function render_lot_page(
+    mysqli $connection,
+    string $navigation,
+    array $lot,
+    array $new_bid = [
+        'errors' => [],
+        'bid' => []
+    ]): void
 {
-    require_once 'src/bid_queries.php';
     $bids = get_all_bids_for_lot($connection, $lot['id']);
 
 
@@ -18,6 +17,7 @@ function render_lot_page($connection, $navigation, $lot, $new_bid = [
         'title' => 'Лот "' . $lot['name'] . '""',
         'content' => include_template('templates/page/lot.php', [
             'lot' => $lot,
+            'user_can_add_bid' => can_add_bid($connection, $lot),
             'bids' => $bids,
             'new_bid' => $new_bid
         ]),
@@ -26,6 +26,34 @@ function render_lot_page($connection, $navigation, $lot, $new_bid = [
 
     render_page($config);
 }
+
+function can_add_bid(mysqli $connection, array $lot): bool
+{
+    // Can't add bid if closed
+    if (lot_is_closed($lot)) {
+        return false;
+    }
+
+    // Can't add bid if not authorized
+    if (!is_logged_in()) {
+        return false;
+    }
+
+    // Can't add bid to her lot
+    $user_id = get_session_current_user()['id'];
+    if ($user_id === $lot['author_id']) {
+        return false;
+    }
+
+    // Can't add bid if already added
+    $bids = get_all_bids_for_lot_by_user($connection, $lot['id'], $user_id);
+    if (sizeof($bids) > 0) {
+        return false;
+    }
+
+    return true;
+}
+
 
 function format_price($price)
 {

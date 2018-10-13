@@ -1,16 +1,31 @@
 <?php
 include_once 'src/utils/db.php';
 
-function get_all_bids_for_lot($connection, $lot_id)
+function create_bid_query(string $where): string
 {
     $query = "SELECT amount, b.created_at, u.name 
 FROM bids b
 JOIN users u ON owner_id = u.id 
-WHERE lot_id = ? 
+WHERE $where 
 GROUP BY b.id 
 ORDER BY b.created_at DESC;";
+    return $query;
+}
+
+
+function get_all_bids_for_lot(mysqli $connection, int $lot_id): ?array
+{
+    $query = create_bid_query("lot_id = ?");
 
     $result = fetch_all($connection, $query, [$lot_id]);
+    return $result;
+}
+
+function get_all_bids_for_lot_by_user(mysqli $connection, int $lot_id, int $owner_id): ?array
+{
+    $query = create_bid_query("lot_id = ? AND owner_id = ?");
+
+    $result = fetch_all($connection, $query, [$lot_id, $owner_id]);
     return $result;
 }
 
