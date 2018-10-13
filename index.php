@@ -7,7 +7,7 @@ $lots = get_all_open_lots($connection);
 $config = [
     'title' => 'Заглавная',
     'promo' => true,
-    'content' => include_template('templates/main', [
+    'content' => include_template('templates/page/main.php', [
         'categories' => $categories,
         'lots' => $lots
     ]),
