@@ -27,7 +27,7 @@ require_once 'src/utils/lot.php';
         <?php if ($user_can_add_bid): ?>
             <div class="lot-item__right">
                 <div class="lot-item__state">
-                    <div class="lot-item__timer timer timer--finishing"><?= format_period(time_left($lot['closed_at'])) ?></div>
+                    <div class="lot-item__timer timer"><?= format_period(time_left($lot['closed_at'])) ?></div>
                     <div class="lot-item__cost-state">
                         <div class="lot-item__rate">
                             <span class="lot-item__amount">Текущая цена</span>
@@ -47,7 +47,7 @@ require_once 'src/utils/lot.php';
                                 <tr class="history__item">
                                     <td class="history__name"><?= htmlspecialchars($bid['name']) ?></td>
                                     <td class="history__price"><?= format_price($bid['amount']) ?></td>
-                                    <td class="history__time"><?= format_relative_time($bid['created_at']) ?></td>
+                                    <td class="history__time"><?= format_relative_time(strtotime($bid['created_at'])) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </table>

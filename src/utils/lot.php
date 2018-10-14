@@ -106,12 +106,47 @@ function format_period($time_left)
     return ($hours < 10 ? '0' . $hours : $hours) . ':' . ($minutes < 10 ? '0' . $minutes : $minutes);
 }
 
-function format_relative_time($time)
+function pluralize(int $n, array $forms): string
 {
-    // TODO:
-    // 5 минут назад
-    // час назад
-    // 19.03.17 в 08:21
-    $time = strtotime($time);
+    return $n % 10 == 1 && $n % 100 != 11 ? $forms[0] : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? $forms[1] : $forms[2]);
+}
+
+function format_relative_time(int $time): string
+{
+    $diff = time() - $time;
+    if ($diff == 0) {
+        return 'только что';
+    } else if ($diff >0) {
+        $day_diff = floor($diff / 86400);
+        $days = $day_diff;
+        if ($days == 0) {
+            if ($diff < 60) {
+                return 'менее минуты назад';
+            }
+            if ($diff < 120) {
+                return 'минуту назад';
+            }
+            if ($diff < 3600) {
+                $minutes = floor($diff / 60);
+                $minute_form = pluralize($minutes, ['минуту', 'минуты', 'минут']);
+                return "$minutes $minute_form назад";
+            }
+            if ($diff < 7200) {
+                return 'час назад';
+            }
+            if ($diff < 86400) {
+                $hours = floor($diff / 3600);
+                $hours_form = pluralize($hours, ['час', 'часа', 'часов']);
+                return "$hours $hours_form назад";
+            }
+        }
+        if ($days == 1) {
+            return 'вчера';
+        }
+        if ($days < 7) {
+            $days_form = pluralize($days, ['день', 'дня', 'дней']);
+            return "$days $days_form назад";
+        }
+    }
     return date('d.m.y в H:i', $time);
 }
