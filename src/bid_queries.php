@@ -59,8 +59,30 @@ function insert_new_bid(mysqli $connection, int $amount, int $lot_id, array $cur
     return $result;
 }
 
-function get_all_my_bids(mysqli $connection, array $me): array
+/**
+ * @param mysqli $connection
+ * @param array $me
+ * @return array
+ */
+function get_my_bids(mysqli $connection, array $me): array
 {
-    $query = "SELECT () LEFT JOIN ";
-    return null;
+    $query = "
+SELECT 
+  bid.amount, 
+  bid.created_at, 
+  lot.id AS lot_id,
+  lot.image_url AS lot_image,
+  lot.description AS lot_desciption,
+  lot.winner_id AS lot_winner,
+  lot.closed_at AS closed_at,
+  usr.info AS author_contact,
+  bid.owner_id = lot.winner_id AS has_won
+FROM bids bid
+JOIN lots lot ON bid.lot_id = lot.id
+JOIN categories category ON category.id = lot.category_id
+JOIN users usr ON lot.author_id = usr.id 
+WHERE bid.owner_id = ?
+GROUP BY bid.id 
+ORDER BY bid.created_at DESC;";
+    return fetch_all($connection, $query, [$me['id']]);
 }
