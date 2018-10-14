@@ -19,7 +19,6 @@ $offset = ($cur_page - 1) * MAX_ITEMS_ON_PAGE;
 
 $pages = range(1, $pages_count);
 
-// запрос на показ девяти самых популярных гифок
 $lots = array_slice($all_lots, $offset, MAX_ITEMS_ON_PAGE);
 
 $config = [
