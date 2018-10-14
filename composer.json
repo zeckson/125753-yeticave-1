@@ -1,0 +1,15 @@
+{
+    "name": "zeckson/yeticave",
+    "description": "YetiCave auction",
+    "type": "project",
+    "require": {
+        "swiftmailer/swiftmailer": "^6.1"
+    },
+    "license": "sci",
+    "authors": [
+        {
+            "name": "Evgenii Shchepotev",
+            "email": "evgenii.schepotiev@gmail.com"
+        }
+    ]
+}
