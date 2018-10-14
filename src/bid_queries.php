@@ -7,7 +7,7 @@ include_once 'src/utils/db.php';
  */
 function create_bid_query(string $where): string
 {
-    $query = "SELECT amount, b.created_at, u.name 
+    $query = "SELECT amount, b.created_at, u.name, owner_id 
 FROM bids b
 JOIN users u ON owner_id = u.id 
 WHERE $where 

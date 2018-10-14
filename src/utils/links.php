@@ -86,3 +86,11 @@ function get_search_page_link(): string
 {
     return "search.php";
 }
+
+/**
+ * @return string
+ */
+function get_my_bids_link(): string
+{
+    return "my_bids.php";
+}
