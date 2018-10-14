@@ -7,7 +7,7 @@ require_once 'src/user_queries.php';
 $lot = [];
 $errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lot = $_POST;
 
     $max_size = (int)ini_get('post_max_size') * 1024 * 1024;

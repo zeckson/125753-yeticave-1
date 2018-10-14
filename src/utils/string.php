@@ -8,7 +8,7 @@ function str_starts_with(string $haystack, string $needle): bool
 function str_ends_with(string $haystack, string $needle): bool
 {
     $length = strlen($needle);
-    if ($length == 0) {
+    if (!$length) {
         return true;
     }
 

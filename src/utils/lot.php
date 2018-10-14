@@ -108,18 +108,18 @@ function format_period($time_left)
 
 function pluralize(int $n, array $forms): string
 {
-    return $n % 10 == 1 && $n % 100 != 11 ? $forms[0] : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? $forms[1] : $forms[2]);
+    return $n % 10 === 1 && $n % 100 != 11 ? $forms[0] : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? $forms[1] : $forms[2]);
 }
 
 function format_relative_time(int $time): string
 {
     $diff = time() - $time;
-    if ($diff == 0) {
+    if ($diff === 0) {
         return 'только что';
     } else if ($diff >0) {
         $day_diff = floor($diff / 86400);
         $days = $day_diff;
-        if ($days == 0) {
+        if ($days === 0) {
             if ($diff < 60) {
                 return 'менее минуты назад';
             }
@@ -140,7 +140,7 @@ function format_relative_time(int $time): string
                 return "$hours $hours_form назад";
             }
         }
-        if ($days == 1) {
+        if ($days === 1) {
             return 'вчера';
         }
         if ($days < 7) {

@@ -26,7 +26,7 @@ require_once 'src/utils/links.php';
             <label for="category">Категория</label>
             <select id="category" name="category" required>
                 <?php foreach ($categories as $category): ?>
-                    <option <?= $category['id'] == ($lot['category'] ?? 0) ? 'selected' : '' ?>
+                    <option <?= $category['id'] === intval($lot['category'] ?? 0) ? 'selected' : '' ?>
                             value="<?= $category['id'] ?>"><?= write_value($category['name']) ?></option>
                 <?php endforeach; ?>
             </select>

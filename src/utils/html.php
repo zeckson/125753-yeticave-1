@@ -96,7 +96,7 @@ function get_uploaded_file_name($fieldName)
 function get_required_file_name($fieldName)
 {
     $fileName = get_uploaded_file_name($fieldName);
-    if ($fileName == null) {
+    if (!$fileName) {
         throw new RuntimeException('Файл не передан.');
     }
     return $fileName;
