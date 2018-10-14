@@ -10,26 +10,14 @@ if ($current_category) {
     $title .= " в категории «{$current_category['name']}»";
 }
 
-$cur_page = intval($_GET['page'] ?? 1);
-
-$items_count = sizeof($all_lots);
-
-$pages_count = ceil($items_count / MAX_ITEMS_ON_PAGE);
-$offset = ($cur_page - 1) * MAX_ITEMS_ON_PAGE;
-
-$pages = range(1, $pages_count);
-
-$lots = array_slice($all_lots, $offset, MAX_ITEMS_ON_PAGE);
+require_once 'src/utils/lot.php';
+$page = get_lots_page($all_lots, intval($_GET['page'] ?? 1));
 
 $config = [
     'title' => $title,
     'content' => include_template('templates/page/list.php', [
         'category' => $current_category,
-        'lots' => $lots,
-        'page' => [
-            'current' => $cur_page,
-            'total' => $pages_count
-        ]
+        'page' => $page
     ]),
     'navigation' => $navigation
 ];
