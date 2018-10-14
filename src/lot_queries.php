@@ -28,7 +28,7 @@ function get_all_open_lots($connection, $cat_id = -1)
     $now = mysqli_time_format();
     $where = "TIMESTAMP('$now') < lot.closed_at";
     if ($cat_id >= 0) {
-        $where = $where." AND lot.category_id = $cat_id";
+        $where = $where . " AND lot.category_id = $cat_id";
     }
     $lots_query = prepare_lot_select_query($where);
 
@@ -56,5 +56,14 @@ function insert_new_lot($connection, $lot, $current_user)
 {
 
     return insert_into($connection, "INSERT INTO lots (name, description, category_id, start_price, image_url, bid_step, closed_at, author_id)
-VALUE (?, ?, ?, ?, ?, ?, ?, ?);", [$lot['name'], $lot['description'], $lot['category'], $lot['start_price'], $lot['image'], $lot['bid_step'], $lot['closed_at'], $current_user['id']]);
+VALUE (?, ?, ?, ?, ?, ?, ?, ?);", [
+        $lot['name'],
+        $lot['description'],
+        $lot['category'],
+        $lot['start_price'],
+        $lot['image'],
+        $lot['bid_step'],
+        $lot['closed_at'],
+        $current_user['id']
+    ]);
 }

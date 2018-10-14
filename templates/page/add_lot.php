@@ -10,7 +10,8 @@
 require_once 'src/utils/html.php';
 require_once 'src/utils/links.php';
 ?>
-<form class="form form--add-lot container <?= mark_if_true(!empty($errors), 'form--invalid') ?>" action="<?= get_add_lot_page_link() ?>"
+<form class="form form--add-lot container <?= mark_if_true(!empty($errors), 'form--invalid') ?>"
+      action="<?= get_add_lot_page_link() ?>"
       enctype="multipart/form-data" method="post">
     <!-- form--invalid -->
     <h2>Добавление лота</h2>
@@ -38,7 +39,8 @@ require_once 'src/utils/links.php';
                   required><?= write_value($lot['description']) ?></textarea>
         <span class="form__error">Напишите описание лота</span>
     </div>
-    <div class="form__item form__item--file <?= mark($lot['image'], 'form__item--uploaded') ?> <?= mark($errors['image']) ?>">
+    <div class="form__item form__item--file <?= mark($lot['image'],
+        'form__item--uploaded') ?> <?= mark($errors['image']) ?>">
         <label>Изображение</label>
         <?php if (isset($lot['image'])): ?>
             <div class="preview">

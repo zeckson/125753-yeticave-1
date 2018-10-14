@@ -11,6 +11,7 @@ $config = [
         'categories' => $categories,
         'lots' => $lots
     ]),
-    'navigation' => $navigation];
+    'navigation' => $navigation
+];
 
 render_page($config);

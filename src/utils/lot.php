@@ -8,8 +8,8 @@ function render_lot_page(
     array $new_bid = [
         'errors' => [],
         'bid' => []
-    ]): void
-{
+    ]
+): void {
     $bids = get_all_bids_for_lot($connection, $lot['id']);
 
 
