@@ -1,24 +1,17 @@
 <?php
-//       lot.id,
-//       lot.name,
-//       lot.description
-//       start_price,
-//       IFNULL(MAX(bid.amount), start_price) AS price,
-//       image_url                            AS image,
-//       category.name                        AS category,
-//       count(bid.id)                        AS bids_count
 /**
  * @var array $bids
  * @var array $category
  */
 require_once 'src/utils/html.php';
+require_once 'src/utils/lot.php';
 
 function get_state($bid)
 {
     if ($bid['has_won']) {
         return 'won';
     }
-    if (strtotime($bid['closed_at']) < time() && $bid['lot_winner']) {
+    if (strtotime($bid['lot_closed_at']) < time() || $bid['lot_winner']) {
         return 'finished';
     }
     return 'active';
@@ -31,9 +24,9 @@ function get_state($bid)
         <?php foreach ($bids as $bid): ?>
             <?php
             $state_2_title = [
-                "active" => format_period(time_left($lot['lot_closed_at'])),
-                "won" => 'Ставка выиграла',
-                "finished" => 'Торги окончены'
+                'active' => format_period(time_left($bid['lot_closed_at'])),
+                'won' => 'Ставка выиграла',
+                'finished' => 'Торги окончены'
             ];
             $state = get_state($bid);
             ?>
@@ -47,7 +40,7 @@ function get_state($bid)
                     </div>
                     <div>
                         <h3 class="rates__title"><a
-                                    href="<?= get_lot_page_link_by_id($bid['lot_id']) ?>"><?= write_value($bid['lot_description']) ?></a>
+                                    href="<?= get_lot_page_link_by_id($bid['lot_id']) ?>"><?= write_value($bid['lot_name']) ?></a>
                         </h3>
                         <?php if ($state === 'won'): ?>
                             <p><?= write_value($bid['author_contact']) ?></p>
@@ -67,7 +60,7 @@ function get_state($bid)
                     <?= format_price($bid['amount']) ?>
                 </td>
                 <td class="rates__time">
-                    <?= format_relative_time($bid['created_at']) ?>
+                    <?= format_relative_time(strtotime($bid['created_at'])) ?>
                 </td>
             </tr>
         <?php endforeach; ?>

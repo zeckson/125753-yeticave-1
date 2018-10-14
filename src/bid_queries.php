@@ -72,9 +72,9 @@ SELECT
   bid.created_at, 
   lot.id AS lot_id,
   lot.image_url AS lot_image,
-  lot.description AS lot_desciption,
+  lot.name AS lot_name,
   lot.winner_id AS lot_winner,
-  lot.closed_at AS closed_at,
+  lot.closed_at AS lot_closed_at,
   usr.info AS author_contact,
   bid.owner_id = lot.winner_id AS has_won
 FROM bids bid
