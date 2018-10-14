@@ -2,12 +2,23 @@
 /** Router script. Contains all routes in app. **/
 
 /**
- * @param array $category
+ * @param array|null $category
+ * @param int|null $page_number
  * @return string
  */
-function get_category_page_link(array $category): string
+function get_category_page_link(?array $category = null, ?int $page_number = null): string
 {
-    return "lot_list.php?category={$category['id']}";
+    $link = "lot_list.php";
+    $first = true;
+    if (isset($category)) {
+        $link .= "?category={$category['id']}";
+        $first = false;
+    }
+    if (isset($page_number)) {
+        $connector = $first ? "?" : "&";
+        $link .= "{$connector}page=$page_number";
+    }
+    return $link;
 }
 
 /**
