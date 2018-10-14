@@ -58,3 +58,9 @@ function insert_new_bid(mysqli $connection, int $amount, int $lot_id, array $cur
     $result = insert_into($connection, $query, [$amount, $current_user['id'], $lot_id]);
     return $result;
 }
+
+function get_all_my_bids(mysqli $connection, array $me): array
+{
+    $query = "SELECT () LEFT JOIN ";
+    return null;
+}
