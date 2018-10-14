@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($close_time < $tomorrow) {
                         $errors[$key] = 'Дата закрытия должна быть не раньше чем завтра';
                     } else {
-                        $lot[$key] = date('Y-m-d H:i:s', $close_time);
+                        $lot[$key] = mysqli_time_format($close_time);
                     }
                     break;
             }
