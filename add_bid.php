@@ -9,8 +9,10 @@ if ($lot_id <= 0) {
     die();
 }
 
+require_once 'src/links.php';
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    header("Location: /lot.php?id=" . $lot_id);
+    $link = get_lot_page_link_by_id($lot_id);
+    header("Location: $link");
     die();
 }
 
@@ -29,14 +31,15 @@ $amountFieldName = 'amount';
 $amount = intval($bid[$amountFieldName]);
 
 $minimal_bid = $lot['price'] + $lot['bid_step'];
-if ($amount <= $minimal_bid) {
+if ($amount < $minimal_bid) {
     $errors[$amountFieldName] = "Ставка не может быть меньше $minimal_bid";
 }
 
 if (empty($errors)) {
     require_once 'src/bid_queries.php';
     $id = insert_new_bid($connection, $amount, $lot_id, get_session_current_user());
-    header("Location: /lot.php?id=" . $lot_id);
+    $link = get_lot_page_link_by_id($lot_id);
+    header("Location: $link");
     die();
 }
 

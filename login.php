@@ -1,8 +1,9 @@
 <?php
 require_once 'src/common.php';
-
+require_once 'src/links.php';
+$index = get_index_page_link();
 if (isset($_SESSION[SESSION_CURRENT_USER])) {
-    header('Location: /index.php');
+    header("Location: $index");
     die();
 }
 
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['password'] = 'Неверный пароль';
         } else {
             set_session_current_user($logged_in_user);
-            header('Location: /index.php');
+            header("Location: $index");
             die();
         }
     }

@@ -1,3 +1,6 @@
+<?php
+require_once 'src/links.php';
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -12,7 +15,7 @@
     <header class="main-header">
         <div class="main-header__container container">
             <h1 class="visually-hidden">YetiCave</h1>
-            <a class="main-header__logo" href="index.php">
+            <a class="main-header__logo" href="<?= get_index_page_link() ?>">
                 <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
             </a>
             <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
@@ -20,7 +23,7 @@
                 <input class="main-header__search-btn" type="submit" name="find" value="Найти">
             </form>
             <?php if (is_logged_in()): ?>
-                <a class="main-header__add-lot button" href="/add.php">Добавить лот</a>
+                <a class="main-header__add-lot button" href="<?= get_add_lot_page_link() ?>">Добавить лот</a>
             <?php endif; ?>
             <nav class="user-menu">
 
@@ -83,7 +86,7 @@
                 </svg>
             </a>
         </div>
-        <a class="main-footer__add-lot button" href="/add.php">Добавить лот</a>
+        <a class="main-footer__add-lot button" href="<?= get_add_lot_page_link() ?>">Добавить лот</a>
         <div class="main-footer__developed-by">
             <span class="visually-hidden">Разработано:</span>
             <a class="logo-academy" href="https://htmlacademy.ru/intensive/php">

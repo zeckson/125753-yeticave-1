@@ -1,8 +1,9 @@
 <?php
 require_once 'src/form_utils.php';
+require_once 'src/links.php';
 ?>
 <form class="form container <?= mark_if_true(!empty($errors), 'form--invalid') ?>"
-      enctype="multipart/form-data" action="register.php" method="post">
+      enctype="multipart/form-data" action="<?= get_register_page_link() ?>" method="post">
     <h2>Регистрация нового аккаунта</h2>
     <div class="form__item <?= mark($errors['email']) ?>">
         <label for="email">E-mail*</label>
@@ -50,6 +51,6 @@ require_once 'src/form_utils.php';
         <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
     <?php endif; ?>
     <button type="submit" class="button">Зарегистрироваться</button>
-    <a class="text-link" href="index.php">Уже есть аккаунт</a>
+    <a class="text-link" href="<?= get_login_page_link() ?>">Уже есть аккаунт</a>
 </form>
   

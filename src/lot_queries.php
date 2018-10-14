@@ -23,10 +23,14 @@ GROUP BY lot.id
 ORDER BY lot.created_at DESC";
 }
 
-function get_all_open_lots($connection)
+function get_all_open_lots($connection, $cat_id = -1)
 {
     $now = date("Y-m-d H:i:s");
-    $lots_query = prepare_lot_select_query("TIMESTAMP('$now') < lot.closed_at");
+    $where = "TIMESTAMP('$now') < lot.closed_at";
+    if ($cat_id >= 0) {
+        $where = $where." AND lot.category_id = $cat_id";
+    }
+    $lots_query = prepare_lot_select_query($where);
 
     $result = fetch_all($connection, $lots_query);
     return $result;

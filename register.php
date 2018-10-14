@@ -35,8 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($errors)) {
-        $id = create_new_user($connection, $user);
-        header('Location: /login.php'); //
+        create_new_user($connection, $user);
+
+        require_once 'src/links.php';
+        $login_link = get_login_page_link();
+
+        header("Location: $login_link"); //
     }
 }
 $config = [
