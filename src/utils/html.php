@@ -18,6 +18,8 @@ function write_value(&$value)
     return isset($value) ? htmlspecialchars($value, ENT_QUOTES) : '';
 }
 
+const UPLOAD_DIR = './uploads';
+
 /**
  * @param $fieldName
  * @return null|string
@@ -66,16 +68,14 @@ function get_uploaded_file_name($fieldName)
         throw new RuntimeException('Неверный формат файла.');
     }
 
-    $upload_dir = './uploads';
-
-    if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0777, false);
+    if (!is_dir(UPLOAD_DIR)) {
+        mkdir(UPLOAD_DIR, 0777, false);
     }
 
     // You should name it uniquely.
     // DO NOT USE $_FILES[$fieldName]['name'] WITHOUT ANY VALIDATION !!
     // On this example, obtain safe unique name from its binary data.
-    $image_url = sprintf('' . $upload_dir . '/%s.%s',
+    $image_url = sprintf('' . UPLOAD_DIR . '/%s.%s',
         sha1_file($_FILES[$fieldName]['tmp_name']),
         $ext
     );

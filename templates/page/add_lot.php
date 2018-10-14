@@ -26,7 +26,7 @@ require_once 'src/utils/links.php';
             <label for="category">Категория</label>
             <select id="category" name="category" required>
                 <?php foreach ($categories as $category): ?>
-                    <option <?= isset($lot['category']) ? ($category['id'] === $lot['category'] ?: 'selected') : '' ?>
+                    <option <?= $category['id'] == ($lot['category'] ?? 0) ? 'selected' : '' ?>
                             value="<?= $category['id'] ?>"><?= write_value($category['name']) ?></option>
                 <?php endforeach; ?>
             </select>
@@ -47,6 +47,7 @@ require_once 'src/utils/links.php';
                 <button class="preview__remove" type="button">x</button>
                 <div class="preview__img">
                     <img src="<?= $lot['image'] ?>" width="113" height="113" alt="Изображение лота">
+                    <input type="hidden" name="image" value="<?= $lot['image'] ?>">
                 </div>
             </div>
         <?php else: ?>

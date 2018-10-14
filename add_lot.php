@@ -14,22 +14,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SERVER["CONTENT_LENGTH"]) && $_SERVER["CONTENT_LENGTH"] > $max_size) {
         $errors['image'] = "Размер загружаемой картинки превысил $max_size";
     } else {
-        $required = ['name', 'description', 'category', 'start_price', 'bid_step', 'closed_at'];
+        $required = ['name', 'description', 'category', 'start_price', 'bid_step', 'closed_at', 'image'];
+        $fixed_lot = array_slice($lot, 0);
         foreach ($required as $key) {
-            $value = $lot[$key];
-            if (empty($value)) {
+            $value = trim($lot[$key] ?? '');
+            $fixed_lot[$key] = $value;
+            if ($value === '') { // BC! Don't use empty(), due to value cast
                 $errors[$key] = 'Это поле надо заполнить';
                 continue;
             }
             switch ($key) {
                 case 'start_price':
                 case 'bid_step':
-                case 'category':
                     $value = intval($value);
                     if ($value <= 0) {
-                        $errors[$key] = 'Это поле должно быть больше 0';
+                        $errors[$key] = 'Это поле должно быть больше ноля';
                     } else {
-                        $lot[$key] = $value;
+                        $fixed_lot[$key] = $value;
+                    }
+                    break;
+                case 'category':
+                    $value = intval($value);
+                    $found_items = array_filter($categories, function ($category) use ($value) {
+                        return $category['id'] === $value;
+                    });
+                    if (sizeof($found_items) <= 0) {
+                        $errors[$key] = "Неизвестная категория: $value";
+                    } else {
+                        $fixed_lot[$key] = $value;
                     }
                     break;
                 case 'closed_at':
@@ -38,21 +50,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($close_time < $tomorrow) {
                         $errors[$key] = 'Дата закрытия должна быть не раньше чем завтра';
                     } else {
-                        $lot[$key] = mysqli_time_format($close_time);
+                        $fixed_lot[$key] = mysqli_time_format($close_time);
+                    }
+                    break;
+                case 'image':
+                    // Check if file was uploaded once
+                    if (!file_exists($value)) {
+                        $errors[$key] = 'Неизвестный файл';
                     }
                     break;
             }
         }
 
-        try {
-            $lot['image'] = get_required_file_name('image');
-        } catch (RuntimeException $e) {
-            $errors['image'] = $e->getMessage();
+        // Check uploaded file if wasn't set yet
+        if (!isset($lot['image'])) {
+            unset($errors['image']);
+            try {
+                $lot['image'] = get_required_file_name('image');
+            } catch (RuntimeException $e) {
+                $errors['image'] = $e->getMessage();
+            }
         }
 
         if (empty($errors)) {
             require_once 'src/lot_queries.php';
-            $id = insert_new_lot($connection, $lot, get_session_current_user());
+            $id = insert_new_lot($connection, $fixed_lot, get_session_current_user());
             require_once 'src/utils/links.php';
             $link = get_lot_page_link_by_id($id);
             header("Location: $link"); //
