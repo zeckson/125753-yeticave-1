@@ -1,4 +1,9 @@
 <?php
+/**
+ * @param string $src
+ * @param array|null $data
+ * @return string
+ */
 function include_template(string $src, array $data = null): string
 {
 
@@ -20,6 +25,9 @@ function include_template(string $src, array $data = null): string
     return $result;
 }
 
+/**
+ * @param array $page
+ */
 function render_page(array $page): void
 {
     print include_template('templates/common/layout.php', $page);

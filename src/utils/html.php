@@ -1,19 +1,30 @@
 <?php
-function mark(&$var, $value = 'form__item--invalid')
+/**
+ * @param $var
+ * @param string $value
+ * @return string
+ */
+function mark(&$var, string $value = 'form__item--invalid'): string
 {
     return mark_if_true(isset($var), $value);
 }
 
-function mark_if_true($condition, $value = 'form__item--invalid')
+/**
+ * @param bool $condition
+ * @param string $value
+ * @return string
+ */
+function mark_if_true(bool $condition, string $value = 'form__item--invalid'): string
 {
     return $condition ? $value : '';
 }
 
 /**
+ * Writes value if set with sanitizing, or empty string otherwise
  * @param $value
  * @return string
  */
-function write_value(&$value)
+function write_value(&$value): string
 {
     return isset($value) ? htmlspecialchars($value, ENT_QUOTES) : '';
 }
@@ -21,22 +32,24 @@ function write_value(&$value)
 const UPLOAD_DIR = './uploads';
 
 /**
- * @param $fieldName
+ * Returns uploaded filePath by given $field_name, null otherwise
+ * @param string $field_name
+ * @throws RuntimeException
  * @return null|string
  */
-function get_uploaded_file_name($fieldName)
+function get_uploaded_file_name(string $field_name): ?string
 {
     // Undefined | Multiple Files | $_FILES Corruption Attack
     // If this request falls under any of them, treat it invalid.
     if (
-        !isset($_FILES[$fieldName]['error']) ||
-        is_array($_FILES[$fieldName]['error'])
+        !isset($_FILES[$field_name]['error']) ||
+        is_array($_FILES[$field_name]['error'])
     ) {
         return null;
     }
 
-    // Check $_FILES[$fieldName]['error'] value.
-    switch ($_FILES[$fieldName]['error']) {
+    // Check $_FILES[$field_name]['error'] value.
+    switch ($_FILES[$field_name]['error']) {
         case UPLOAD_ERR_OK:
             break;
         case UPLOAD_ERR_NO_FILE:
@@ -49,15 +62,15 @@ function get_uploaded_file_name($fieldName)
     }
 
     // You should also check filesize here.
-    if ($_FILES[$fieldName]['size'] > 1000000) {
+    if ($_FILES[$field_name]['size'] > 1000000) {
         throw new RuntimeException('Превышен размер файла.');
     }
 
-    // DO NOT TRUST $_FILES[$fieldName]['mime'] VALUE !!
+    // DO NOT TRUST $_FILES[$field_name]['mime'] VALUE !!
     // Check MIME Type by yourself.
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $file_info = new finfo(FILEINFO_MIME_TYPE);
     if (false === $ext = array_search(
-            $finfo->file($_FILES[$fieldName]['tmp_name']),
+            $file_info->file($_FILES[$field_name]['tmp_name']),
             array(
                 'jpg' => 'image/jpeg',
                 'png' => 'image/png',
@@ -73,14 +86,14 @@ function get_uploaded_file_name($fieldName)
     }
 
     // You should name it uniquely.
-    // DO NOT USE $_FILES[$fieldName]['name'] WITHOUT ANY VALIDATION !!
+    // DO NOT USE $_FILES[$field_name]['name'] WITHOUT ANY VALIDATION !!
     // On this example, obtain safe unique name from its binary data.
     $image_url = sprintf('' . UPLOAD_DIR . '/%s.%s',
-        sha1_file($_FILES[$fieldName]['tmp_name']),
+        sha1_file($_FILES[$field_name]['tmp_name']),
         $ext
     );
     if (!move_uploaded_file(
-        $_FILES[$fieldName]['tmp_name'],
+        $_FILES[$field_name]['tmp_name'],
         $image_url
     )) {
         throw new RuntimeException('Невозможно скпоировать файл.');
@@ -90,10 +103,11 @@ function get_uploaded_file_name($fieldName)
 }
 
 /**
- * @param $fieldName
+ * @param string $fieldName
+ * @throws RuntimeException
  * @return string
  */
-function get_required_file_name($fieldName)
+function get_required_file_name(string $fieldName): string
 {
     $fileName = get_uploaded_file_name($fieldName);
     if (!$fileName) {

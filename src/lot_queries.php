@@ -1,7 +1,11 @@
 <?php
 include_once 'src/utils/db.php';
 
-function prepare_lot_select_query($where)
+/**
+ * @param string $where
+ * @return string
+ */
+function prepare_lot_select_query(string $where): string
 {
     return "SELECT lot.id,
        lot.name,
@@ -23,7 +27,12 @@ GROUP BY lot.id
 ORDER BY lot.created_at DESC";
 }
 
-function get_all_open_lots($connection, $cat_id = -1)
+/**
+ * @param mysqli $connection
+ * @param int $cat_id
+ * @return array|null
+ */
+function get_all_open_lots(mysqli $connection, int $cat_id = -1): ?array
 {
     $now = mysqli_time_format();
     $where = "TIMESTAMP('$now') < lot.closed_at";
@@ -36,14 +45,19 @@ function get_all_open_lots($connection, $cat_id = -1)
     return $result;
 }
 
-function get_lot_by_id($connection, $id)
+/**
+ * @param mysqli $connection
+ * @param int $id
+ * @return array|null
+ */
+function get_lot_by_id(mysqli $connection, int $id): ?array
 {
     if (!isset($id)) {
         return null;
     }
     if (is_string($id)) {
         $id = intval($id);
-        if ($id === 0) { // How to detect case when we have '0' form 'xyz', since intval returns 0 in both cases
+        if ($id === 0) {
             return null;
         }
     }
@@ -52,7 +66,13 @@ function get_lot_by_id($connection, $id)
     return $rows[0] ?? null;
 }
 
-function insert_new_lot($connection, $lot, $current_user)
+/**
+ * @param mysqli $connection
+ * @param array $lot
+ * @param array $current_user
+ * @return int|null
+ */
+function insert_new_lot(mysqli $connection, array $lot, array $current_user): ?int
 {
 
     return insert_into($connection, "INSERT INTO lots (name, description, category_id, start_price, image_url, bid_step, closed_at, author_id)

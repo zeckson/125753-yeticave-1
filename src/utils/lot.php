@@ -1,6 +1,12 @@
 <?php
 require_once 'src/bid_queries.php';
 
+/**
+ * @param mysqli $connection
+ * @param string $navigation
+ * @param array $lot
+ * @param array $new_bid
+ */
 function render_lot_page(
     mysqli $connection,
     string $navigation,
@@ -27,6 +33,11 @@ function render_lot_page(
     render_page($config);
 }
 
+/**
+ * @param mysqli $connection
+ * @param array $lot
+ * @return bool
+ */
 function can_add_bid(mysqli $connection, array $lot): bool
 {
     // Can't add bid if closed
@@ -55,7 +66,11 @@ function can_add_bid(mysqli $connection, array $lot): bool
 }
 
 
-function format_price($price)
+/**
+ * @param int $price
+ * @return string
+ */
+function format_price(int $price): string
 {
     $part_length = 3;
 
@@ -81,12 +96,20 @@ function format_price($price)
     return $result . ' ₽';
 }
 
+/**
+ * @param array $lot
+ * @return bool
+ */
 function lot_is_closed(array $lot): bool
 {
     $close_ts = strtotime($lot['closed_at']);
     return $close_ts < time();
 }
 
+/**
+ * @param string $closed_at
+ * @return int
+ */
 function time_left(string $closed_at): int
 {
     $now = time(); // PHP return timestamp in seconds =(
@@ -95,7 +118,11 @@ function time_left(string $closed_at): int
     return $close_ts - $now;
 }
 
-function format_period($time_left)
+/**
+ * @param int $time_left
+ * @return string
+ */
+function format_period(int $time_left): string
 {
     $one_minute = 60; // seconds
 
@@ -106,17 +133,26 @@ function format_period($time_left)
     return ($hours < 10 ? '0' . $hours : $hours) . ':' . ($minutes < 10 ? '0' . $minutes : $minutes);
 }
 
+/**
+ * @param int $n
+ * @param array $forms
+ * @return string
+ */
 function pluralize(int $n, array $forms): string
 {
     return $n % 10 === 1 && $n % 100 != 11 ? $forms[0] : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? $forms[1] : $forms[2]);
 }
 
+/**
+ * @param int $time
+ * @return string
+ */
 function format_relative_time(int $time): string
 {
     $diff = time() - $time;
     if ($diff === 0) {
         return 'только что';
-    } else if ($diff >0) {
+    } elseif ($diff > 0) {
         $day_diff = floor($diff / 86400);
         $days = $day_diff;
         if ($days === 0) {
@@ -148,5 +184,6 @@ function format_relative_time(int $time): string
             return "$days $days_form назад";
         }
     }
+
     return date('d.m.y в H:i', $time);
 }
