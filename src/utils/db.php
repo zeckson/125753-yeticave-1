@@ -18,9 +18,9 @@ function prepare(mysqli $connection, string $query, array $data): mysqli_stmt
 
             if (is_int($value)) {
                 $type = 'i';
-            } else if (is_string($value)) {
+            } elseif (is_string($value)) {
                 $type = 's';
-            } else if (is_double($value)) {
+            } elseif (is_double($value)) {
                 $type = 'd';
             }
 

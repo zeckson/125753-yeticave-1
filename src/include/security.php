@@ -16,10 +16,8 @@ if (!isset($_SESSION[SESSION_CURRENT_USER])) {
     } else {
         $_SESSION[SESSION_CURRENT_USER] = null;
     }
-} else {
-    if (!isset($_SESSION[SESSION_CURRENT_USER]['avatar_url'])) {
-        $_SESSION[SESSION_CURRENT_USER]['avatar_url'] = './img/user.jpg';
-    }
+} elseif (!isset($_SESSION[SESSION_CURRENT_USER]['avatar_url'])) {
+    $_SESSION[SESSION_CURRENT_USER]['avatar_url'] = './img/user.jpg';
 }
 
 function set_session_current_user($user): void
