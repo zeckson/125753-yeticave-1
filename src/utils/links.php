@@ -78,3 +78,11 @@ function get_register_page_link(): string
 {
     return "register.php";
 }
+
+/**
+ * @return string
+ */
+function get_search_page_link(): string
+{
+    return "search.php";
+}

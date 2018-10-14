@@ -22,9 +22,9 @@ require_once 'src/utils/links.php';
             <a class="main-header__logo" href="<?= get_index_page_link() ?>">
                 <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
             </a>
-            <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
-                <input type="search" name="search" placeholder="Поиск лота">
-                <input class="main-header__search-btn" type="submit" name="find" value="Найти">
+            <form class="main-header__search" method="get" enctype="application/x-www-form-urlencoded" action="<?= get_search_page_link() ?>">
+                <input type="search" name="query" placeholder="Поиск лота" value="<?= write_value($query) ?>">
+                <input class="main-header__search-btn" type="submit">
             </form>
             <?php if (is_logged_in()): ?>
                 <a class="main-header__add-lot button" href="<?= get_add_lot_page_link() ?>">Добавить лот</a>
