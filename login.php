@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) {
         $logged_in_user = login($connection, $user['email'], $user['password']);
         if (!$logged_in_user) {
-            $errors['password'] = 'Неверный пароль';
+            $errors['password'] = 'Вы ввели неверный email/пароль';
         } else {
             set_session_current_user($logged_in_user);
             header("Location: $index");
