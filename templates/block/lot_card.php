@@ -26,7 +26,7 @@ require_once 'src/utils/links.php';
                 <span class="lot__cost"><?= format_price($lot['price']) ?></span>
             </div>
             <div class="lot__timer timer">
-                <?= format_period(time_left()) ?>
+                <?= format_period(time_left($lot['closed_at'])) ?>
             </div>
         </div>
     </div>
