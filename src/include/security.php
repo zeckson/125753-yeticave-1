@@ -1,12 +1,17 @@
 <?php
 
 const SESSION_CURRENT_USER = 'current_user';
+
+const NOT_FOUND_HTTP_STATUS_CODE = 404;
+const UNAUTHORIZED_HTTP_STATUS_CODE = 401;
+const FORBIDDEN_HTTP_STATUS_CODE = 403;
+
 session_start();
 
 if (!isset($_SESSION[SESSION_CURRENT_USER])) {
     // if anonymous and page is not allowed for unauthenticated
     if (isset($authorized_only)) {
-        http_response_code(403);
+        http_response_code(UNAUTHORIZED_HTTP_STATUS_CODE);
         die();
     } else {
         $_SESSION[SESSION_CURRENT_USER] = null;
