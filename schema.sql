@@ -47,7 +47,9 @@ CREATE TABLE lots
   FOREIGN KEY (winner_id) REFERENCES users (id)
     ON DELETE CASCADE,
   FOREIGN KEY (category_id) REFERENCES categories (id)
-    ON DELETE RESTRICT
+    ON DELETE RESTRICT,
+
+  FULLTEXT (name, description)
 );
 
 
