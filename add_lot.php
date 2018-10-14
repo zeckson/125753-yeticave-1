@@ -66,7 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!isset($lot['image'])) {
             unset($errors['image']);
             try {
-                $lot['image'] = get_required_file_name('image');
+                $path = get_required_file_name('image');
+                $lot['image'] = $path;
+                $fixed_lot['image'] = $path;
             } catch (RuntimeException $e) {
                 $errors['image'] = $e->getMessage();
             }
