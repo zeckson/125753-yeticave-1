@@ -1,6 +1,6 @@
 <?php
-require_once 'src/common.php';
-require_once 'src/links.php';
+require_once 'src/include/common.php';
+require_once 'src/utils/links.php';
 $index = get_index_page_link();
 if (isset($_SESSION[SESSION_CURRENT_USER])) {
     header("Location: $index");
@@ -39,11 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $config = [
     'title' => 'Вход',
-    'content' => include_template('templates/login', [
+    'content' => include_template('templates/page/login.php', [
         'user' => $user,
         'errors' => $errors
     ]),
     'navigation' => $navigation
 ];
-print include_template('templates/layout', $config);
 
+render_page($config);

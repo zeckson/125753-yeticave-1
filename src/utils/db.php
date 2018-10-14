@@ -1,11 +1,5 @@
 <?php
-/**
- * @param $connection
- * @param $query
- * @param $data
- * @return bool|mysqli_stmt
- */
-function prepare($connection, $query, $data)
+function prepare(mysqli $connection, string $query, array $data): mysqli_stmt
 {
     $stmt = mysqli_prepare($connection, $query);
 
@@ -45,62 +39,27 @@ function prepare($connection, $query, $data)
     return $stmt;
 }
 
-/**
- * @param $connection
- * @param $query
- * @param array $data
- * @return array|null
- */
-function fetch_all($connection, $query, $data = [])
+function fetch_all(mysqli $connection, string $query, array $data = []): ?array
 {
     $executed = prepare($connection, $query, $data);
     $result = mysqli_fetch_all(mysqli_stmt_get_result($executed), MYSQLI_ASSOC);
     return $result;
 }
 
-/**
- * @param $connection
- * @param $query
- * @param array $data
- * @return mixed
- */
-function insert_into($connection, $query, $data = [])
+function insert_into(mysqli $connection, string $query, array $data = []): ?int
 {
     $executed = prepare($connection, $query, $data);
     $result = mysqli_stmt_insert_id($executed);
     return $result;
 }
 
-/**
- * @param $fields
- * @return string
- */
-function insert_statement($fields)
+function insert_statement(array $fields): string
 {
     return '(' . implode(',', $fields) . ') 
     VALUE (' . implode(',', array_fill(0, sizeof($fields), '?')) . ')';
 }
 
-
-/**
- * @return mysqli
- */
-function setup_connection(): mysqli
+function mysqli_time_format(?int $timestamp = null): string
 {
-    // To access to MySQL v8 and older you have to set option in `my.cnf`:
-    // default-authentication-plugin=mysql_native_password
-    // Long story is here: https://mysqlserverteam.com/upgrading-to-mysql-8-0-default-authentication-plugin-considerations/
-    $connection = mysqli_connect('localhost', 'root', '', 'yeticave');
-
-    if (!$connection) {
-        $error = mysqli_connect_error();
-        trigger_error("Failed connect to database: '{$error}'", E_USER_ERROR);
-    }
-
-    // setup charset
-    mysqli_set_charset($connection, 'utf8');
-
-    return $connection;
+    return date("Y-m-d H:i:s", $timestamp ?? time());
 }
-
-$connection = setup_connection();

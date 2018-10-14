@@ -1,6 +1,6 @@
 <?php
-require_once 'src/form_utils.php';
-require_once 'src/links.php';
+require_once 'src/utils/html.php';
+require_once 'src/utils/links.php';
 ?>
 <form class="form container <?= mark_if_true(!empty($errors), 'form--invalid') ?>" action="<?= get_login_page_link() ?>"
       enctype="application/x-www-form-urlencoded" method="post">

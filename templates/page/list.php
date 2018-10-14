@@ -7,7 +7,7 @@
 //       image_url                            AS image,
 //       category.name                        AS category,
 //       count(bid.id)                        AS bids_count
-require_once 'src/lot_format.php';
+require_once 'src/utils/lot.php';
 ?>
 <div class="container">
     <section class="lots">
@@ -17,7 +17,7 @@ require_once 'src/lot_format.php';
 
         <ul class="lots__list">
             <?php foreach ($lots as $lot): ?>
-                <?= include_template('templates/lot_card', ['lot' => $lot]) ?>
+                <?= include_template('templates/block/lot_card.php', ['lot' => $lot]) ?>
             <?php endforeach; ?>
         </ul>
     </section>

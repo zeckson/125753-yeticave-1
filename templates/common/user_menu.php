@@ -1,9 +1,14 @@
 <?php
-require_once 'src/links.php';
+require_once 'src/utils/links.php';
+
+/**
+ * @var array $current_user
+ */
 ?>
-<?php if ($current_user): ?>
+<?php
+if ($current_user): ?>
     <div class="user-menu__image">
-        <img src="<?=$current_user['avatar_url'];?>" width="40" height="40" alt="Пользователь">
+        <img src="<?= $current_user['avatar_url']; ?>" width="40" height="40" alt="Пользователь">
     </div>
     <div class="user-menu__logged">
         <p><?= $current_user['name'] ?></p>

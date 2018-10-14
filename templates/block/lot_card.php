@@ -7,8 +7,8 @@
 //       image_url                            AS image,
 //       category.name                        AS category,
 //       count(bid.id)                        AS bids_count
-require_once 'src/lot_format.php';
-require_once 'src/links.php';
+require_once 'src/utils/lot.php';
+require_once 'src/utils/links.php';
 ?>
 <li class="lots__item lot">
     <div class="lot__image">

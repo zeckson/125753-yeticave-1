@@ -1,5 +1,5 @@
 <?php
-require_once 'src/common.php';
+require_once 'src/include/common.php';
 
 require_once 'src/user_queries.php';
 $user = [];
@@ -30,14 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['avatar_url'] = $e->getMessage();
     }
 
-    if(get_user_by_email($connection, $user['email'])) {
+    if (get_user_by_email($connection, $user['email'])) {
         $errors['email'] = 'Пользователь с таким email уже создан';
     }
 
     if (empty($errors)) {
         create_new_user($connection, $user);
 
-        require_once 'src/links.php';
+        require_once 'src/utils/links.php';
         $login_link = get_login_page_link();
 
         header("Location: $login_link"); //
@@ -45,11 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 $config = [
     'title' => 'Регистрация',
-    'content' => include_template('templates/register', [
+    'content' => include_template('templates/page/register.php', [
         'user' => $user,
         'errors' => $errors
     ]),
     'navigation' => $navigation
 ];
-print include_template('templates/layout', $config);
+
+render_page($config);
 

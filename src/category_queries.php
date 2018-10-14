@@ -1,5 +1,5 @@
 <?php
-include_once 'utils.php';
+include_once 'src/utils/db.php';
 
 function get_all_categories($connection)
 {

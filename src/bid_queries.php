@@ -1,6 +1,5 @@
 <?php
-include_once 'utils.php';
-include_once 'security.php';
+include_once 'src/utils/db.php';
 
 function get_all_bids_for_lot($connection, $lot_id)
 {

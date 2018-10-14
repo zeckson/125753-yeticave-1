@@ -1,6 +1,6 @@
 <?php
 $authorized_only = true;
-require_once 'src/common.php';
+require_once 'src/include/common.php';
 
 $lot_id = intval($_GET['lot_id'] ?? null);
 
@@ -9,7 +9,7 @@ if ($lot_id <= 0) {
     die();
 }
 
-require_once 'src/links.php';
+require_once 'src/utils/links.php';
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     $link = get_lot_page_link_by_id($lot_id);
     header("Location: $link");
@@ -43,7 +43,7 @@ if (empty($errors)) {
     die();
 }
 
-require_once 'src/lot_utils.php';
+require_once 'src/utils/lot.php';
 render_lot_page($connection, $navigation, $lot, [
     'bid' => $bid,
     'errors' => $errors
