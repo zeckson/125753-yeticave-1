@@ -1,17 +1,22 @@
 <?php
 include_once 'src/utils/db.php';
 
-function get_random_user($connection)
-{
-    return fetch_all($connection, "SELECT id, name FROM users LIMIT 1");
-}
-
-function get_user_by_email($connection, $email)
+/**
+ * @param mysqli $connection
+ * @param string $email
+ * @return array
+ */
+function get_user_by_email(mysqli $connection, string $email): array
 {
     return fetch_all($connection, "SELECT id FROM users WHERE email=?", [$email]);
 }
 
-function create_new_user($connection, $user)
+/**
+ * @param mysqli $connection
+ * @param array $user
+ * @return int|null
+ */
+function create_new_user(mysqli $connection, array $user): ?int
 {
     $password = password_hash($user['password'] . $user['email'], PASSWORD_BCRYPT);
 
@@ -27,12 +32,12 @@ function create_new_user($connection, $user)
 }
 
 /**
- * @param $connection
- * @param $email
- * @param $password
- * @return array|null
+ * @param mysqli $connection
+ * @param string $email
+ * @param string $password
+ * @return array
  */
-function login($connection, $email, $password)
+function login(mysqli $connection, string $email, string $password): array
 {
     $user = fetch_all($connection, "SELECT id, name, password, avatar_url FROM users WHERE email=?", [$email]);
 

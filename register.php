@@ -5,7 +5,7 @@ require_once 'src/user_queries.php';
 $user = [];
 $errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST;
 
     $required = ['email', 'password', 'name', 'info'];

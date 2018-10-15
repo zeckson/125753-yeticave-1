@@ -16,7 +16,7 @@ if (!isset($_SESSION[SESSION_CURRENT_USER])) {
     } else {
         $_SESSION[SESSION_CURRENT_USER] = null;
     }
-} else if (!isset($_SESSION[SESSION_CURRENT_USER]['avatar_url'])) {
+} elseif (!isset($_SESSION[SESSION_CURRENT_USER]['avatar_url'])) {
     $_SESSION[SESSION_CURRENT_USER]['avatar_url'] = './img/user.jpg';
 }
 

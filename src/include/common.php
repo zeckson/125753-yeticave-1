@@ -7,6 +7,9 @@ date_default_timezone_set('Europe/Moscow');
 
 require_once 'security.php';
 
+/**
+ * @return mysqli
+ */
 function setup_connection(): mysqli
 {
     // To access to MySQL v8 and older you have to set option in `my.cnf`:

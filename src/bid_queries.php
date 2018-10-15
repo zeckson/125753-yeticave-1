@@ -1,6 +1,10 @@
 <?php
 include_once 'src/utils/db.php';
 
+/**
+ * @param string $where
+ * @return string
+ */
 function create_bid_query(string $where): string
 {
     $query = "SELECT amount, b.created_at, u.name 
@@ -13,6 +17,11 @@ ORDER BY b.created_at DESC;";
 }
 
 
+/**
+ * @param mysqli $connection
+ * @param int $lot_id
+ * @return array|null
+ */
 function get_all_bids_for_lot(mysqli $connection, int $lot_id): ?array
 {
     $query = create_bid_query("lot_id = ?");
@@ -21,6 +30,12 @@ function get_all_bids_for_lot(mysqli $connection, int $lot_id): ?array
     return $result;
 }
 
+/**
+ * @param mysqli $connection
+ * @param int $lot_id
+ * @param int $owner_id
+ * @return array|null
+ */
 function get_all_bids_for_lot_by_user(mysqli $connection, int $lot_id, int $owner_id): ?array
 {
     $query = create_bid_query("lot_id = ? AND owner_id = ?");
@@ -29,7 +44,14 @@ function get_all_bids_for_lot_by_user(mysqli $connection, int $lot_id, int $owne
     return $result;
 }
 
-function insert_new_bid($connection, $amount, $lot_id, $current_user)
+/**
+ * @param mysqli $connection
+ * @param int $amount
+ * @param int $lot_id
+ * @param array $current_user
+ * @return int|null
+ */
+function insert_new_bid(mysqli $connection, int $amount, int $lot_id, array $current_user): ?int
 {
     $query = "INSERT INTO bids (amount, owner_id, lot_id) VALUE (?, ?, ?);";
 

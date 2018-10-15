@@ -1,4 +1,10 @@
 <?php
+/**
+ * @param mysqli $connection
+ * @param string $query
+ * @param array $data
+ * @return mysqli_stmt
+ */
 function prepare(mysqli $connection, string $query, array $data): mysqli_stmt
 {
     $stmt = mysqli_prepare($connection, $query);
@@ -12,9 +18,9 @@ function prepare(mysqli $connection, string $query, array $data): mysqli_stmt
 
             if (is_int($value)) {
                 $type = 'i';
-            } else if (is_string($value)) {
+            } elseif (is_string($value)) {
                 $type = 's';
-            } else if (is_double($value)) {
+            } elseif (is_double($value)) {
                 $type = 'd';
             }
 
@@ -39,6 +45,12 @@ function prepare(mysqli $connection, string $query, array $data): mysqli_stmt
     return $stmt;
 }
 
+/**
+ * @param mysqli $connection
+ * @param string $query
+ * @param array $data
+ * @return array|null
+ */
 function fetch_all(mysqli $connection, string $query, array $data = []): ?array
 {
     $executed = prepare($connection, $query, $data);
@@ -46,6 +58,12 @@ function fetch_all(mysqli $connection, string $query, array $data = []): ?array
     return $result;
 }
 
+/**
+ * @param mysqli $connection
+ * @param string $query
+ * @param array $data
+ * @return int|null
+ */
 function insert_into(mysqli $connection, string $query, array $data = []): ?int
 {
     $executed = prepare($connection, $query, $data);
@@ -53,12 +71,21 @@ function insert_into(mysqli $connection, string $query, array $data = []): ?int
     return $result;
 }
 
+/**
+ * @param array $fields
+ * @return string
+ */
 function insert_statement(array $fields): string
 {
     return '(' . implode(',', $fields) . ') 
     VALUE (' . implode(',', array_fill(0, sizeof($fields), '?')) . ')';
 }
 
+/**
+ * Formats time to mysql time format default
+ * @param int|null $timestamp
+ * @return string
+ */
 function mysqli_time_format(?int $timestamp = null): string
 {
     return date("Y-m-d H:i:s", $timestamp ?? time());

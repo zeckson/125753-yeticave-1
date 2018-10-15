@@ -1,14 +1,24 @@
 <?php
+/**
+ * @param string $haystack
+ * @param string $needle
+ * @return bool
+ */
 function str_starts_with(string $haystack, string $needle): bool
 {
     $length = strlen($needle);
     return (substr($haystack, 0, $length) === $needle);
 }
 
+/**
+ * @param string $haystack
+ * @param string $needle
+ * @return bool
+ */
 function str_ends_with(string $haystack, string $needle): bool
 {
     $length = strlen($needle);
-    if ($length == 0) {
+    if (!$length) {
         return true;
     }
 

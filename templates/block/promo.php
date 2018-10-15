@@ -13,6 +13,7 @@ function get_category_class($category)
     $name = mb_strtolower($category['name'], 'utf-8');
     return $category_2_class[$name];
 }
+
 require_once 'src/utils/links.php';
 ?>
 <ul class="promo__list">

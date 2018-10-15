@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 require_once 'src/lot_queries.php';
 $lot = get_lot_by_id($connection, $lot_id);
 
-if ($lot == null) {
+if (!$lot) {
     http_response_code(NOT_FOUND_HTTP_STATUS_CODE);
     die();
 }
