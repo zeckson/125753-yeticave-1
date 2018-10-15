@@ -13,7 +13,7 @@ require_once 'src/utils/links.php';
     </div>
     <div class="form__item form__item--last <?= mark($errors['password']) ?>">
         <label for="password">Пароль*</label>
-        <input id="password" type="text" name="password" placeholder="Введите пароль" required>
+        <input id="password" type="password" name="password" placeholder="Введите пароль" required>
         <span class="form__error"><?= $errors['password'] ?></span>
     </div>
     <button type="submit" class="button">Войти</button>
