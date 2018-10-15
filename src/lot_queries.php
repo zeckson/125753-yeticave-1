@@ -47,6 +47,20 @@ function get_all_open_lots(mysqli $connection, int $cat_id = -1): ?array
 
 /**
  * @param mysqli $connection
+ * @return array|null
+ */
+function get_all_expired_lots_without_winner(mysqli $connection): ?array
+{
+    $now = mysqli_time_format();
+    $where = "TIMESTAMP('$now') >= lot.closed_at AND lot.winner_id IS NULL";
+    $lots_query = prepare_lot_select_query($where);
+
+    $result = fetch_all($connection, $lots_query);
+    return $result;
+}
+
+/**
+ * @param mysqli $connection
  * @param string $query
  * @param int $cat_id
  * @return array|null
@@ -86,6 +100,16 @@ function get_lot_by_id(mysqli $connection, int $id): ?array
 
     $rows = fetch_all($connection, prepare_lot_select_query('lot.id = ?'), [$id]);
     return $rows[0] ?? null;
+}
+
+/**
+ * @param mysqli $connection
+ * @param int $lot_id
+ * @param int $winner_id
+ */
+function set_lot_winner(mysqli $connection, int $lot_id, int $winner_id): void
+{
+    prepare($connection, "UPDATE lots SET winner_id = ? WHERE id = ?", [$winner_id, $lot_id]);
 }
 
 /**

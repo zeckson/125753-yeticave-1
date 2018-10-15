@@ -7,5 +7,6 @@
 *.sublime*
 Thumbs.db
 vendor
+bin
 
 uploads

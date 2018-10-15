@@ -13,6 +13,16 @@ function get_user_by_email(mysqli $connection, string $email): array
 
 /**
  * @param mysqli $connection
+ * @param int $user_id
+ * @return array|null
+ */
+function get_user_by_id(mysqli $connection, int $user_id): ?array
+{
+    return fetch_all($connection, "SELECT id, name, email FROM users WHERE id=?", [$user_id])[0] ?? null;
+}
+
+/**
+ * @param mysqli $connection
  * @param array $user
  * @return int|null
  */

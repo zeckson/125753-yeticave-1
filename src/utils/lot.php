@@ -153,7 +153,7 @@ function format_relative_time(int $time): string
     if ($diff === 0) {
         return 'только что';
     } elseif ($diff > 0) {
-        $day_diff = floor($diff / 86400);
+        $day_diff = intval(floor($diff / 86400));
         $days = $day_diff;
         if ($days === 0) {
             if ($diff < 60) {
