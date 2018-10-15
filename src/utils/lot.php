@@ -153,7 +153,7 @@ function format_relative_time(int $time): string
     if ($diff === 0) {
         return 'только что';
     } elseif ($diff > 0) {
-        $day_diff = floor($diff / 86400);
+        $day_diff = intval(floor($diff / 86400));
         $days = $day_diff;
         if ($days === 0) {
             if ($diff < 60) {
@@ -186,4 +186,23 @@ function format_relative_time(int $time): string
     }
 
     return date('d.m.y в H:i', $time);
+}
+
+/**
+ * @param array $lots
+ * @param int $cur_page
+ * @return array
+ */
+function get_lots_page(array $lots, int $cur_page): array
+{
+    $page = [];
+    $items_count = sizeof($lots);
+
+    $pages_count = ceil($items_count / MAX_ITEMS_ON_PAGE);
+    $offset = ($cur_page - 1) * MAX_ITEMS_ON_PAGE;
+
+    $page['data'] = array_slice($lots, $offset, MAX_ITEMS_ON_PAGE);
+    $page['total'] = $pages_count;
+    $page['current'] = $cur_page;
+    return $page;
 }
