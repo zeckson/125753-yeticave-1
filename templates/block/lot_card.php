@@ -23,7 +23,7 @@ require_once 'src/utils/links.php';
         </h3>
         <div class="lot__state">
             <div class="lot__rate">
-                <span class="lot__amount">Стартовая цена</span>
+                <span class="lot__amount">Цена</span>
                 <span class="lot__cost"><?= format_price($lot['price']) ?></span>
             </div>
             <div class="lot__timer timer">
