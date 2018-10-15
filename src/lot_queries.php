@@ -47,6 +47,28 @@ function get_all_open_lots(mysqli $connection, int $cat_id = -1): ?array
 
 /**
  * @param mysqli $connection
+ * @param string $query
+ * @param int $cat_id
+ * @return array|null
+ */
+function get_all_open_lots_by_query(mysqli $connection, string $query, int $cat_id = -1): ?array
+{
+    $now = mysqli_time_format();
+    $where = "TIMESTAMP('$now') < lot.closed_at";
+    if ($cat_id >= 0) {
+        $where .= " AND lot.category_id = $cat_id";
+    }
+    if (!empty($query)) {
+        $where .= " AND MATCH(lot.name, lot.description) AGAINST (?)";
+    }
+    $lots_query = prepare_lot_select_query($where);
+
+    $result = fetch_all($connection, $lots_query, empty($query) ? [] : [$query]);
+    return $result;
+}
+
+/**
+ * @param mysqli $connection
  * @param int $id
  * @return array|null
  */
