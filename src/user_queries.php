@@ -47,7 +47,7 @@ function create_new_user(mysqli $connection, array $user): ?int
  * @param string $password
  * @return array
  */
-function login(mysqli $connection, string $email, string $password): array
+function login(mysqli $connection, string $email, string $password): ?array
 {
     $user = fetch_all($connection, "SELECT id, name, password, avatar_url FROM users WHERE email=?", [$email]);
 
