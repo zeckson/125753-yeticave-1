@@ -75,7 +75,7 @@ function format_price(int $price): string
 {
     $part_length = 3;
 
-    $original = ceil($price);
+    $original = strval(ceil($price));
 
     $result = '';
     $length = strlen($original);
