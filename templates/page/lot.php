@@ -14,20 +14,20 @@ require_once 'src/utils/lot.php';
  */
 ?>
 <section class="lot-item container">
-    <h2><?= $lot['name'] ?></h2>
+    <h2><?= html_saintize($lot['name']) ?></h2>
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
                 <img src="<?= $lot['image'] ?>" width="730" height="548"
-                     alt="<?= htmlspecialchars($lot['name'], ENT_QUOTES) ?>">
+                     alt="<?= html_saintize($lot['name']) ?>">
             </div>
-            <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
-            <p class="lot-item__description"><?= htmlspecialchars($lot['description']) ?></p>
+            <p class="lot-item__category">Категория: <span><?= html_saintize($lot['category']) ?></span></p>
+            <p class="lot-item__description"><?= html_saintize($lot['description']) ?></p>
         </div>
 
         <div class="lot-item__right">
             <div class="lot-item__state">
-                <div class="lot-item__timer timer"><?= format_period(time_left($lot['closed_at'])) ?></div>
+                <div class="lot-item__timer timer <?= mark_if_true(lot_is_finishing(time_left($lot['closed_at'])), 'timer--finishing') ?>"><?= format_period(time_left($lot['closed_at'])) ?></div>
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">
                         <span class="lot-item__amount">Текущая цена</span>
@@ -47,7 +47,7 @@ require_once 'src/utils/lot.php';
                 <table class="history__list">
                     <?php foreach ($bids as $bid): ?>
                         <tr class="history__item">
-                            <td class="history__name"><?= htmlspecialchars($bid['name']) ?></td>
+                            <td class="history__name"><?= html_saintize($bid['name']) ?></td>
                             <td class="history__price"><?= format_price($bid['amount']) ?></td>
                             <td class="history__time"><?= format_relative_time(strtotime($bid['created_at'])) ?></td>
                         </tr>

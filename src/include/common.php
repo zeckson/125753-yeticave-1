@@ -31,3 +31,21 @@ function setup_connection(): mysqli
 $connection = setup_connection();
 
 require_once 'navigation.php';
+
+/**
+ * @param string $navigation
+ */
+function show_not_found_page(
+    string $navigation
+): void {
+    http_response_code(NOT_FOUND_HTTP_STATUS_CODE);
+
+    $config = [
+        'title' => 'Страница не найдена',
+        'content' => include_template('templates/page/404.php'),
+        'navigation' => $navigation
+    ];
+
+    render_page($config);
+    die();
+}

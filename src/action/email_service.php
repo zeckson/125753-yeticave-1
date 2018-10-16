@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 require_once 'vendor/autoload.php';
 const BASE_URL = 'http://localhost:8080';
 

@@ -1,6 +1,6 @@
 # use mysql.server start/stop — to start/stop mysql server
 
-DROP DATABASE yeticave;
+DROP DATABASE IF EXISTS yeticave;
 
 CREATE DATABASE IF NOT EXISTS yeticave
   DEFAULT CHAR SET utf8

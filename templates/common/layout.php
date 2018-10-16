@@ -23,7 +23,7 @@ require_once 'src/utils/links.php';
                 <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
             </a>
             <form class="main-header__search" method="get" enctype="application/x-www-form-urlencoded" action="<?= get_search_page_link() ?>">
-                <input type="search" name="query" placeholder="Поиск лота" value="<?= write_value($query) ?>">
+                <input type="search" name="query" placeholder="Поиск лота" value="<?= html_saintize($query) ?>">
                 <input class="main-header__search-btn" type="submit">
             </form>
             <?php if (is_logged_in()): ?>

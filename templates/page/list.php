@@ -16,10 +16,20 @@ require_once 'src/utils/lot.php';
 <div class="container">
     <section class="lots">
         <?php if (isset($query) && !empty($query)): ?>
-            <h2>Результаты поиска по запросу «<span><?= write_value($query) ?></span>»</h2>
+            <?php if (sizeof($page['data']) <= 0): ?>
+                <h2>По запросу «<span><?= html_saintize($query) ?></span>» ничего не найдено</h2>
+            <?php else: ?>
+                <h2>Результаты поиска по запросу «<span><?= html_saintize($query) ?></span>»</h2>
+            <?php endif ?>
         <?php endif ?>
         <?php if (isset($category)): ?>
-            <h2>Все лоты в категории <span>«<?= write_value($category['name']) ?>»</span></h2>
+            <?php if (sizeof($page['data']) <= 0): ?>
+                <h2>В категории <span>«<?= html_saintize($category['name']) ?>» ничего не найдено</span></h2>
+            <?php else: ?>
+                <h2>Все лоты в категории <span>«<?= html_saintize($category['name']) ?>»</span></h2>
+            <?php endif ?>
+        <?php elseif (!isset($query)): ?>
+            <h2>Неизвестная категория</h2>
         <?php endif ?>
 
         <ul class="lots__list">

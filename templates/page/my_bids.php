@@ -36,19 +36,19 @@ function get_state($bid)
                 <td class="rates__info">
                     <div class="rates__img">
                         <img src="<?= $bid['lot_image'] ?>" width="54" height="40"
-                             alt="<?= write_value($bid['lot_name']) ?>">
+                             alt="<?= html_saintize($bid['lot_name']) ?>">
                     </div>
                     <div>
                         <h3 class="rates__title"><a
-                                    href="<?= get_lot_page_link_by_id($bid['lot_id']) ?>"><?= write_value($bid['lot_name']) ?></a>
+                                    href="<?= get_lot_page_link_by_id($bid['lot_id']) ?>"><?= html_saintize($bid['lot_name']) ?></a>
                         </h3>
                         <?php if ($state === 'won'): ?>
-                            <p><?= write_value($bid['author_contact']) ?></p>
+                            <p><?= html_saintize($bid['author_contact']) ?></p>
                         <?php endif ?>
                     </div>
                 </td>
                 <td class="rates__category">
-                    <?= write_value($bid['lot_category']) ?>
+                    <?= html_saintize($bid['lot_category']) ?>
                 </td>
                 <td class="rates__timer">
                     <div class="timer

@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 const SESSION_CURRENT_USER = 'current_user';
 
 const NOT_FOUND_HTTP_STATUS_CODE = 404;

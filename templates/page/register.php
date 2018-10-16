@@ -8,7 +8,7 @@ require_once 'src/utils/links.php';
     <div class="form__item <?= mark($errors['email']) ?>">
         <label for="email">E-mail*</label>
         <input id="email" type="text" name="email"
-               value="<?= write_value($user['email']) ?>" placeholder="Введите e-mail" required>
+               value="<?= html_saintize($user['email']) ?>" placeholder="Введите e-mail" required>
         <span class="form__error"><?= $errors['email'] ?></span>
     </div>
     <div class="form__item <?= mark($errors['password']) ?>">
@@ -19,13 +19,13 @@ require_once 'src/utils/links.php';
     <div class="form__item <?= mark($errors['name']) ?>">
         <label for="name">Имя*</label>
         <input id="name" type="text" name="name"
-               value="<?= write_value($user['name']) ?>" placeholder="Введите имя" required>
+               value="<?= html_saintize($user['name']) ?>" placeholder="Введите имя" required>
         <span class="form__error"><?= $errors['name'] ?></span>
     </div>
     <div class="form__item <?= mark($errors['info']) ?>">
         <label for="message">Контактные данные*</label>
         <textarea id="message" name="info"
-                  placeholder="Напишите как с вами связаться" required><?= write_value($user['info']) ?></textarea>
+                  placeholder="Напишите как с вами связаться" required><?= html_saintize($user['info']) ?></textarea>
         <span class="form__error">Напишите как с вами связаться</span>
     </div>
     <div class="form__item form__item--file form__item--last <?= mark($errors['avatar_url']) ?>">

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once 'src/bid_queries.php';
 
 /**
@@ -74,7 +75,7 @@ function format_price(int $price): string
 {
     $part_length = 3;
 
-    $original = ceil($price);
+    $original = strval(ceil($price));
 
     $result = '';
     $length = strlen($original);
@@ -118,19 +119,32 @@ function time_left(string $closed_at): int
     return $close_ts - $now;
 }
 
+const ONE_MINUTE = 60; // in seconds
+const ONE_HOUR = 60 * 60; // in seconds
+
+function lot_is_finishing(int $time_left): bool {
+    return $time_left < ONE_HOUR;
+}
+
 /**
  * @param int $time_left
  * @return string
  */
 function format_period(int $time_left): string
 {
-    $one_minute = 60; // seconds
-
-    $minutes = ceil($time_left / $one_minute);
+    $minutes = ceil($time_left / ONE_MINUTE);
     $hours = floor($minutes / 60);
     $minutes %= 60;
 
-    return ($hours < 10 ? '0' . $hours : $hours) . ':' . ($minutes < 10 ? '0' . $minutes : $minutes);
+    $days = intval(floor($hours / 24));
+    $hours %= 24;
+
+    $time_left = ($hours < 10 ? '0' . $hours : $hours) . ':' . ($minutes < 10 ? '0' . $minutes : $minutes);
+    if ($days > 0) {
+        $time_left = $days.' '.pluralize($days, ['день', 'дня', 'дней']).' '.$time_left;
+    }
+
+    return $time_left;
 }
 
 /**
@@ -163,7 +177,7 @@ function format_relative_time(int $time): string
                 return 'минуту назад';
             }
             if ($diff < 3600) {
-                $minutes = floor($diff / 60);
+                $minutes = intval(floor($diff / 60));
                 $minute_form = pluralize($minutes, ['минуту', 'минуты', 'минут']);
                 return "$minutes $minute_form назад";
             }
@@ -171,7 +185,7 @@ function format_relative_time(int $time): string
                 return 'час назад';
             }
             if ($diff < 86400) {
-                $hours = floor($diff / 3600);
+                $hours = intval(floor($diff / 3600));
                 $hours_form = pluralize($hours, ['час', 'часа', 'часов']);
                 return "$hours $hours_form назад";
             }
@@ -187,6 +201,8 @@ function format_relative_time(int $time): string
 
     return date('d.m.y в H:i', $time);
 }
+
+const MAX_ITEMS_ON_PAGE = 9;
 
 /**
  * @param array $lots

@@ -14,9 +14,9 @@ $minimal_bid = $lot['price'] + $lot['bid_step'];
       action="<?= get_add_bid_page_link($lot['id']) ?>" method="post" enctype="application/x-www-form-urlencoded">
     <p class="lot-item__form-item <?= mark($errors['amount']) ?>">
         <label for="cost">Ваша ставка</label>
-        <input id="cost" type="number" name="amount" value="<?= write_value($bid['amount']) ?>"
+        <input id="cost" type="number" name="amount" value="<?= html_saintize($bid['amount']) ?>"
                placeholder="<?= format_price($minimal_bid) ?>">
-        <span class="form__error"><?= write_value($errors['amount']) ?></span>
+        <span class="form__error"><?= html_saintize($errors['amount']) ?></span>
     </p>
     <button type="submit" class="button">Сделать ставку</button>
 </form>

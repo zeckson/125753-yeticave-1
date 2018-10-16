@@ -1,14 +1,15 @@
 <?php
+declare(strict_types=1);
 include_once 'src/utils/db.php';
 
 /**
  * @param mysqli $connection
  * @param string $email
- * @return array
+ * @return array|null
  */
-function get_user_by_email(mysqli $connection, string $email): array
+function get_user_by_email(mysqli $connection, string $email): ?array
 {
-    return fetch_all($connection, "SELECT id FROM users WHERE email=?", [$email]);
+    return fetch_all($connection, "SELECT id FROM users WHERE email=?", [$email])[0] ?? null;
 }
 
 /**
@@ -24,9 +25,9 @@ function get_user_by_id(mysqli $connection, int $user_id): ?array
 /**
  * @param mysqli $connection
  * @param array $user
- * @return int|null
+ * @return int
  */
-function create_new_user(mysqli $connection, array $user): ?int
+function create_new_user(mysqli $connection, array $user): int
 {
     $password = password_hash($user['password'] . $user['email'], PASSWORD_BCRYPT);
 
@@ -45,7 +46,7 @@ function create_new_user(mysqli $connection, array $user): ?int
  * @param mysqli $connection
  * @param string $email
  * @param string $password
- * @return array
+ * @return array|null
  */
 function login(mysqli $connection, string $email, string $password): ?array
 {

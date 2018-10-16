@@ -8,9 +8,9 @@
 </head>
 <body>
 <h1>Поздравляем с победой</h1>
-<p>Здравствуйте, <?= write_value($user['name']) ?></p>
+<p>Здравствуйте, <?= html_saintize($user['name']) ?></p>
 <p>Ваша ставка для лота <a
-            href="<?= BASE_URL . '/' . get_lot_page_link_by_id($lot['id']) ?>"><?= write_value($lot['name']) ?></a>
+            href="<?= BASE_URL . '/' . get_lot_page_link_by_id($lot['id']) ?>"><?= html_saintize($lot['name']) ?></a>
     победила.
 </p>
 <p>Перейдите по ссылке <a href="<?= BASE_URL . '/' . get_my_bids_link() ?>">мои ставки</a>,
