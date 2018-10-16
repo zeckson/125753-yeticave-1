@@ -1,9 +1,13 @@
 <?php
+declare(strict_types=1);
 require_once 'src/action/email_service.php';
 require_once 'src/bid_queries.php';
 require_once 'src/user_queries.php';
 
-function determine_winner(mysqli $connection)
+/**
+ * @param mysqli $connection
+ */
+function determine_winner(mysqli $connection):void
 {
     $mailer = setup_mailer();
     $expired_lots = get_all_expired_lots_without_winner($connection);

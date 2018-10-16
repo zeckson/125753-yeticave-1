@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once 'src/category_queries.php';
 
 $cat_id = intval($_GET['category'] ?? -1);

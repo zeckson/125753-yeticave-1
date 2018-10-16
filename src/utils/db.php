@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @param mysqli $connection
  * @param string $query

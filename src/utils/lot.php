@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once 'src/bid_queries.php';
 
 /**
@@ -163,7 +164,7 @@ function format_relative_time(int $time): string
                 return 'минуту назад';
             }
             if ($diff < 3600) {
-                $minutes = floor($diff / 60);
+                $minutes = intval(floor($diff / 60));
                 $minute_form = pluralize($minutes, ['минуту', 'минуты', 'минут']);
                 return "$minutes $minute_form назад";
             }
@@ -171,7 +172,7 @@ function format_relative_time(int $time): string
                 return 'час назад';
             }
             if ($diff < 86400) {
-                $hours = floor($diff / 3600);
+                $hours = intval(floor($diff / 3600));
                 $hours_form = pluralize($hours, ['час', 'часа', 'часов']);
                 return "$hours $hours_form назад";
             }
