@@ -27,7 +27,7 @@ require_once 'src/utils/lot.php';
 
         <div class="lot-item__right">
             <div class="lot-item__state">
-                <div class="lot-item__timer timer"><?= format_period(time_left($lot['closed_at'])) ?></div>
+                <div class="lot-item__timer timer <?= mark_if_true(lot_is_finishing(time_left($lot['closed_at'])), 'timer--finishing') ?>"><?= format_period(time_left($lot['closed_at'])) ?></div>
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">
                         <span class="lot-item__amount">Текущая цена</span>

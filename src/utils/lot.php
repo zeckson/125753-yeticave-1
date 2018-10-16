@@ -119,15 +119,20 @@ function time_left(string $closed_at): int
     return $close_ts - $now;
 }
 
+const ONE_MINUTE = 60; // in seconds
+const ONE_HOUR = 60 * 60; // in seconds
+
+function lot_is_finishing(int $time_left): bool {
+    return $time_left < ONE_HOUR;
+}
+
 /**
  * @param int $time_left
  * @return string
  */
 function format_period(int $time_left): string
 {
-    $one_minute = 60; // seconds
-
-    $minutes = ceil($time_left / $one_minute);
+    $minutes = ceil($time_left / ONE_MINUTE);
     $hours = floor($minutes / 60);
     $minutes %= 60;
 
