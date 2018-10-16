@@ -6,12 +6,13 @@ $user = [];
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once 'src/utils/string.php';
     $user = $_POST;
 
     $required = ['email', 'password', 'name', 'info'];
     foreach ($required as $key) {
         $value = $user[$key];
-        if (empty($value)) {
+        if (str_is_empty($value)) {
             $errors[$key] = 'Это поле надо заполнить';
             continue;
         }
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = 'Пользователь с таким email уже создан';
     }
 
-    if (empty($errors)) {
+    if (sizeof($errors) <= 0) {
         create_new_user($connection, $user);
 
         require_once 'src/utils/links.php';

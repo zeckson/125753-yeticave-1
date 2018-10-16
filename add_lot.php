@@ -8,6 +8,7 @@ $lot = [];
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once 'src/utils/string.php';
     $lot = $_POST;
 
     $max_size = (int)ini_get('post_max_size') * 1024 * 1024;
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($required as $key) {
             $value = trim($lot[$key] ?? '');
             $fixed_lot[$key] = $value;
-            if ($value === '') { // BC! Don't use empty(), due to value cast
+            if (str_is_empty($value)) {
                 $errors[$key] = 'Это поле надо заполнить';
                 continue;
             }
@@ -74,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if (empty($errors)) {
+        if (sizeof($errors) <= 0) {
             require_once 'src/lot_queries.php';
             $id = insert_new_lot($connection, $fixed_lot, get_session_current_user());
             require_once 'src/utils/links.php';

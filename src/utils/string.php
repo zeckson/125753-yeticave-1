@@ -25,3 +25,15 @@ function str_ends_with(string $haystack, string $needle): bool
 
     return (substr($haystack, -$length) === $needle);
 }
+
+/**
+ * Returns true if trimmed string is empty
+ * @param string $candidate
+ * @return bool
+ */
+function str_is_empty(string $candidate): bool
+{
+    $candidate = trim($candidate);
+
+    return $candidate === '';
+}

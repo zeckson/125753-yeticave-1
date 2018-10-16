@@ -12,10 +12,11 @@
  * @var array $category
  */
 require_once 'src/utils/lot.php';
+require_once 'src/utils/string.php';
 ?>
 <div class="container">
     <section class="lots">
-        <?php if (isset($query) && !empty($query)): ?>
+        <?php if (!str_is_empty($query ?? '')): ?>
             <?php if (sizeof($page['data']) <= 0): ?>
                 <h2>По запросу «<span><?= html_saintize($query) ?></span>» ничего не найдено</h2>
             <?php else: ?>
