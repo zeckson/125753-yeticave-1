@@ -131,7 +131,15 @@ function format_period(int $time_left): string
     $hours = floor($minutes / 60);
     $minutes %= 60;
 
-    return ($hours < 10 ? '0' . $hours : $hours) . ':' . ($minutes < 10 ? '0' . $minutes : $minutes);
+    $days = intval(floor($hours / 24));
+    $hours %= 24;
+
+    $time_left = ($hours < 10 ? '0' . $hours : $hours) . ':' . ($minutes < 10 ? '0' . $minutes : $minutes);
+    if ($days > 0) {
+        $time_left = $days.' '.pluralize($days, ['день', 'дня', 'дней']).' '.$time_left;
+    }
+
+    return $time_left;
 }
 
 /**
