@@ -188,6 +188,8 @@ function format_relative_time(int $time): string
     return date('d.m.y в H:i', $time);
 }
 
+const MAX_ITEMS_ON_PAGE = 9;
+
 /**
  * @param array $lots
  * @param int $cur_page

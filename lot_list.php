@@ -1,5 +1,5 @@
 <?php
-const MAX_ITEMS_ON_PAGE = 9;
+
 require_once 'src/include/common.php';
 
 require_once 'src/lot_queries.php';

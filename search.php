@@ -1,5 +1,4 @@
 <?php
-const MAX_ITEMS_ON_PAGE = 9;
 include_once 'src/include/common.php';
 
 $query = trim($_GET['query'] ?? '');
