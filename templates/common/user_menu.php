@@ -11,7 +11,7 @@ if ($current_user): ?>
         <img src="<?= $current_user['avatar_url']; ?>" width="40" height="40" alt="Пользователь">
     </div>
     <div class="user-menu__logged">
-        <p><?= $current_user['name'] ?></p>
+        <p><?= html_saintize($current_user['name']) ?></p>
         <a href="<?= get_logout_page_link() ?>">Выйти</a>
     </div>
 <?php else: ?>
