@@ -12,12 +12,13 @@ $user = [];
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once 'src/utils/string.php';
     $user = $_POST;
 
     $required = ['email', 'password'];
     foreach ($required as $key) {
         $value = $user[$key];
-        if (empty($value)) {
+        if (str_is_empty($value)) {
             $errors[$key] = 'Это поле надо заполнить';
         }
     }
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = 'Пользователь с таким email не найден';
     }
 
-    if (empty($errors)) {
+    if (sizeof($errors) <= 0) {
         $logged_in_user = login($connection, $user['email'], $user['password']);
         if (!$logged_in_user) {
             $errors['password'] = 'Вы ввели неверный email/пароль';

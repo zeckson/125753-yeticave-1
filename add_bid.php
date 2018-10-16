@@ -39,7 +39,7 @@ if ($amount < $minimal_bid) {
     $errors[$amountFieldName] = "Ставка не может быть меньше $minimal_bid";
 }
 
-if (empty($errors)) {
+if (sizeof($errors) <= 0) {
     require_once 'src/bid_queries.php';
     $id = insert_new_bid($connection, $amount, $lot_id, get_session_current_user());
     $link = get_lot_page_link_by_id($lot_id);

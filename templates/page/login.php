@@ -2,7 +2,8 @@
 require_once 'src/utils/html.php';
 require_once 'src/utils/links.php';
 ?>
-<form class="form container <?= mark_if_true(!empty($errors), 'form--invalid') ?>" action="<?= get_login_page_link() ?>"
+<form class="form container <?= mark_if_true(sizeof($errors) > 0, 'form--invalid') ?>"
+      action="<?= get_login_page_link() ?>"
       enctype="application/x-www-form-urlencoded" method="post">
     <h2>Вход</h2>
     <div class="form__item <?= mark($errors['email']) ?>">

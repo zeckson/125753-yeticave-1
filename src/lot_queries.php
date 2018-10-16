@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 include_once 'src/utils/db.php';
+include_once 'src/utils/string.php';
 
 /**
  * @param string $where
@@ -73,12 +74,12 @@ function get_all_open_lots_by_query(mysqli $connection, string $query, int $cat_
     if ($cat_id >= 0) {
         $where .= " AND lot.category_id = $cat_id";
     }
-    if (!empty($query)) {
+    if (!str_is_empty($query)) {
         $where .= " AND MATCH(lot.name, lot.description) AGAINST (?)";
     }
     $lots_query = prepare_lot_select_query($where);
 
-    $result = fetch_all($connection, $lots_query, empty($query) ? [] : [$query]);
+    $result = fetch_all($connection, $lots_query, str_is_empty($query) ? [] : [$query]);
     return $result;
 }
 

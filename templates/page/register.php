@@ -2,7 +2,7 @@
 require_once 'src/utils/html.php';
 require_once 'src/utils/links.php';
 ?>
-<form class="form container <?= mark_if_true(!empty($errors), 'form--invalid') ?>"
+<form class="form container <?= mark_if_true(sizeof($errors) > 0, 'form--invalid') ?>"
       enctype="multipart/form-data" action="<?= get_register_page_link() ?>" method="post">
     <h2>Регистрация нового аккаунта</h2>
     <div class="form__item <?= mark($errors['email']) ?>">
@@ -47,7 +47,7 @@ require_once 'src/utils/links.php';
         <?php endif ?>
         <span class="form__error"><?= $errors['avatar_url'] ?></span>
     </div>
-    <?php if (!empty($errors)): ?>
+    <?php if (sizeof($errors) > 0): ?>
         <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
     <?php endif; ?>
     <button type="submit" class="button">Зарегистрироваться</button>
