@@ -25,7 +25,7 @@ function determine_winner(mysqli $connection):void
                 if ($error) {
                     $error_message = "Не удалось отправить письмо {$user['email']}: $error";
                 }
-            } catch (Swift_TransportException $e) {
+            } catch (Exception $e) {
                 $error_message = $e->getMessage();
             }
             if (empty($error_message)) {
