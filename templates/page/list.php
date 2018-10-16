@@ -16,10 +16,10 @@ require_once 'src/utils/lot.php';
 <div class="container">
     <section class="lots">
         <?php if (isset($query) && !empty($query)): ?>
-            <h2>Результаты поиска по запросу «<span><?= write_value($query) ?></span>»</h2>
+            <h2>Результаты поиска по запросу «<span><?= html_saintize($query) ?></span>»</h2>
         <?php endif ?>
         <?php if (isset($category)): ?>
-            <h2>Все лоты в категории <span>«<?= write_value($category['name']) ?>»</span></h2>
+            <h2>Все лоты в категории <span>«<?= html_saintize($category['name']) ?>»</span></h2>
         <?php endif ?>
 
         <ul class="lots__list">

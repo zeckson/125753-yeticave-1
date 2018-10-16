@@ -24,7 +24,7 @@ function mark_if_true(bool $condition, string $value = 'form__item--invalid'): s
  * @param $value
  * @return string
  */
-function write_value(&$value): string
+function html_saintize(&$value): string
 {
     return isset($value) ? htmlspecialchars($value, ENT_QUOTES) : '';
 }

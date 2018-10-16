@@ -18,7 +18,7 @@ require_once 'src/utils/links.php';
     <div class="form__container-two">
         <div class="form__item <?= mark($errors['name']) ?>">
             <label for="lot-name">Наименование</label>
-            <input id="lot-name" value="<?= write_value($lot['name']) ?>" type="text" name="name"
+            <input id="lot-name" value="<?= html_saintize($lot['name']) ?>" type="text" name="name"
                    placeholder="Введите наименование лота" required>
             <span class="form__error">Введите наименование лота</span>
         </div>
@@ -26,8 +26,8 @@ require_once 'src/utils/links.php';
             <label for="category">Категория</label>
             <select id="category" name="category" required>
                 <?php foreach ($categories as $category): ?>
-                    <option <?= $category['id'] === intval($lot['category'] ?? 0) ? 'selected' : '' ?>
-                            value="<?= $category['id'] ?>"><?= write_value($category['name']) ?></option>
+                    <option <?= mark_if_true($category['id'] === intval($lot['category'] ?? 0), 'selected') ?>
+                            value="<?= $category['id'] ?>"><?= html_saintize($category['name']) ?></option>
                 <?php endforeach; ?>
             </select>
             <span class="form__error">Выберите категорию</span>
@@ -36,7 +36,7 @@ require_once 'src/utils/links.php';
     <div class="form__item form__item--wide <?= mark($errors['description']) ?>">
         <label for="message">Описание</label>
         <textarea id="message" name="description" placeholder="Напишите описание лота"
-                  required><?= write_value($lot['description']) ?></textarea>
+                  required><?= html_saintize($lot['description']) ?></textarea>
         <span class="form__error">Напишите описание лота</span>
     </div>
     <div class="form__item form__item--file <?= mark($lot['image'],
@@ -76,7 +76,7 @@ require_once 'src/utils/links.php';
         <div class="form__item <?= mark($errors['closed_at']) ?>">
             <label for="lot-date">Дата окончания торгов</label>
             <input class="form__input-date" id="lot-date" type="date" name="closed_at"
-                   value="<?= write_value($lot['closed_at']) ?>" required>
+                   value="<?= html_saintize($lot['closed_at']) ?>" required>
             <span class="form__error"><?= $errors['closed_at'] ?></span>
         </div>
     </div>

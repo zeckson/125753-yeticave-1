@@ -7,7 +7,7 @@ require_once 'src/utils/links.php';
     <h2>Вход</h2>
     <div class="form__item <?= mark($errors['email']) ?>">
         <label for="email">E-mail*</label>
-        <input id="email" type="text" value="<?= write_value($user['email']) ?>" name="email"
+        <input id="email" type="text" value="<?= html_saintize($user['email']) ?>" name="email"
                placeholder="Введите e-mail" required>
         <span class="form__error"><?= $errors['email'] ?></span>
     </div>
