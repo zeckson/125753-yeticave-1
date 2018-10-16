@@ -32,6 +32,9 @@ $connection = setup_connection();
 
 require_once 'navigation.php';
 
+/**
+ * @param string $navigation
+ */
 function show_not_found_page(
     string $navigation
 ): void {
