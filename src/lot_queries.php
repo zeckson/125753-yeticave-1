@@ -31,9 +31,9 @@ ORDER BY lot.created_at DESC";
 /**
  * @param mysqli $connection
  * @param int $cat_id
- * @return array|null
+ * @return array
  */
-function get_all_open_lots(mysqli $connection, int $cat_id = -1): ?array
+function get_all_open_lots(mysqli $connection, int $cat_id = -1): array
 {
     $now = mysqli_time_format();
     $where = "TIMESTAMP('$now') < lot.closed_at";
@@ -48,9 +48,9 @@ function get_all_open_lots(mysqli $connection, int $cat_id = -1): ?array
 
 /**
  * @param mysqli $connection
- * @return array|null
+ * @return array
  */
-function get_all_expired_lots_without_winner(mysqli $connection): ?array
+function get_all_expired_lots_without_winner(mysqli $connection): array
 {
     $now = mysqli_time_format();
     $where = "TIMESTAMP('$now') >= lot.closed_at AND lot.winner_id IS NULL";
@@ -64,9 +64,9 @@ function get_all_expired_lots_without_winner(mysqli $connection): ?array
  * @param mysqli $connection
  * @param string $query
  * @param int $cat_id
- * @return array|null
+ * @return array
  */
-function get_all_open_lots_by_query(mysqli $connection, string $query, int $cat_id = -1): ?array
+function get_all_open_lots_by_query(mysqli $connection, string $query, int $cat_id = -1): array
 {
     $now = mysqli_time_format();
     $where = "TIMESTAMP('$now') < lot.closed_at";
@@ -117,9 +117,9 @@ function set_lot_winner(mysqli $connection, int $lot_id, int $winner_id): void
  * @param mysqli $connection
  * @param array $lot
  * @param array $current_user
- * @return int|null
+ * @return int
  */
-function insert_new_lot(mysqli $connection, array $lot, array $current_user): ?int
+function insert_new_lot(mysqli $connection, array $lot, array $current_user): int
 {
 
     return insert_into($connection, "INSERT INTO lots (name, description, category_id, start_price, image_url, bid_step, closed_at, author_id)
