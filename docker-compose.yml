@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    # every time you update ./nginx/Dockerfile - either you need to run docker-compose
+    # with special flag to force rebuild (not recommended), or update version here (better way)
+    image: zeckson/nginx:0.1
+    build:
+      context: ./nginx
+    ports:
+    - "80:80"
+    volumes:
+    - ./nginx/yeticave.local.conf:/etc/nginx/sites-enabled/default
+    - ./:/code
+    networks:
+    - code-network
+  php:
+    image: php:fpm
+    volumes:
+    - ./:/code
+    networks:
+    - code-network
+
+networks:
+  code-network:
+    driver: bridge
