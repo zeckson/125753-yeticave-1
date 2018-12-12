@@ -132,6 +132,10 @@ function lot_is_finishing(int $time_left): bool {
  */
 function format_period(int $time_left): string
 {
+    if ($time_left < 0) {
+        return format_period(abs($time_left)).' назад';
+    }
+
     $minutes = ceil($time_left / ONE_MINUTE);
     $hours = floor($minutes / 60);
     $minutes %= 60;
