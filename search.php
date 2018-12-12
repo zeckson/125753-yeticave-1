@@ -9,7 +9,7 @@ if ($current_category) {
 }
 
 require_once 'src/lot_queries.php';
-$all_lots = get_all_open_lots_by_query($connection, $query, $cat_id);
+$all_lots = get_all_open_lots_by_query($connection, $query, $category_id);
 
 require_once 'src/utils/lot.php';
 $page = get_lots_page($all_lots, intval($_GET['page'] ?? 1));
