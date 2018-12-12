@@ -12,7 +12,7 @@ function get_category_page_link(?array $category = null, ?int $page_number = nul
     $link = "lot_list.php";
     $first = true;
     if (isset($category)) {
-        $link .= "?category={$category['id']}";
+        $link .= "?category={$category['alias']}";
         $first = false;
     }
     if (isset($page_number)) {
