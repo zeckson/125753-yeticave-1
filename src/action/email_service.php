@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once 'vendor/autoload.php';
 const BASE_URL = 'http://localhost:8080';
+const IS_EMAIL_ENABLED = false;
 
 /**
  * @return Swift_Mailer
