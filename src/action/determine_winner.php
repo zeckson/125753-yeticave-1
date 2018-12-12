@@ -9,6 +9,10 @@ require_once 'src/user_queries.php';
  */
 function determine_winner(mysqli $connection):void
 {
+    if (!IS_EMAIL_ENABLED) {
+        return;
+    }
+
     $mailer = setup_mailer();
     $expired_lots = get_all_expired_lots_without_winner($connection);
     foreach ($expired_lots as $lot) {

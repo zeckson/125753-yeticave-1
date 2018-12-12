@@ -8,7 +8,7 @@ include_once 'src/utils/db.php';
  */
 function get_all_categories(mysqli $connection): array
 {
-    return fetch_all($connection, 'SELECT id, name FROM categories ORDER BY id ASC');
+    return fetch_all($connection, 'SELECT id, name, alias FROM categories ORDER BY id ASC');
 }
 
 /**
